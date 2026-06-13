@@ -1,4 +1,5 @@
 using System.Drawing;
+using System.Reflection;
 using System.Runtime.InteropServices;
 
 namespace Shigure;
@@ -292,6 +293,9 @@ internal static class UiTheme
         listView.OwnerDraw = true;
         listView.ShowItemToolTips = true;
         listView.SmallImageList = new ImageList { ImageSize = new Size(1, 26) };
+        typeof(Control)
+            .GetProperty("DoubleBuffered", BindingFlags.Instance | BindingFlags.NonPublic)
+            ?.SetValue(listView, true);
 
         listView.DrawColumnHeader += (_, e) =>
         {

@@ -238,7 +238,7 @@
     },
     {
       "Enabled": true,
-      "Condition": "战斗 == false && 目标类型 in (1, 2, 3) && 一键辅助 == 14",
+      "Condition": "战斗 == true && 目标类型 in (1, 2, 3) && 一键辅助 == 14",
       "Unit": 0,
       "Spell": "暗言术：痛",
       "Hotkey": "",

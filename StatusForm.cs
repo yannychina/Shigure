@@ -559,8 +559,6 @@ public sealed class StatusForm : Form
 
     private static void ReplaceItems(ListView listView, IReadOnlyList<ListViewItem> items)
     {
-        listView.BeginUpdate();
-        listView.Items.Clear();
         foreach (var item in items)
         {
             item.ToolTipText = string.Join(
@@ -568,7 +566,87 @@ public sealed class StatusForm : Form
                 item.SubItems.Cast<ListViewItem.ListViewSubItem>().Select(subItem => subItem.Text));
         }
 
+        if (HasSameItems(listView, items))
+        {
+            return;
+        }
+
+        if (CanUpdateInPlace(listView, items))
+        {
+            UpdateItemsInPlace(listView, items);
+            return;
+        }
+
+        listView.BeginUpdate();
+        listView.Items.Clear();
         listView.Items.AddRange(items.ToArray());
+        listView.EndUpdate();
+    }
+
+    private static bool HasSameItems(ListView listView, IReadOnlyList<ListViewItem> items)
+    {
+        if (!CanUpdateInPlace(listView, items))
+        {
+            return false;
+        }
+
+        for (var row = 0; row < items.Count; row++)
+        {
+            var current = listView.Items[row];
+            var next = items[row];
+            if (current.ToolTipText != next.ToolTipText)
+            {
+                return false;
+            }
+
+            for (var column = 0; column < next.SubItems.Count; column++)
+            {
+                if (current.SubItems[column].Text != next.SubItems[column].Text)
+                {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    private static bool CanUpdateInPlace(ListView listView, IReadOnlyList<ListViewItem> items)
+    {
+        if (listView.Items.Count != items.Count)
+        {
+            return false;
+        }
+
+        for (var row = 0; row < items.Count; row++)
+        {
+            if (listView.Items[row].SubItems.Count != items[row].SubItems.Count)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private static void UpdateItemsInPlace(ListView listView, IReadOnlyList<ListViewItem> items)
+    {
+        listView.BeginUpdate();
+        for (var row = 0; row < items.Count; row++)
+        {
+            var current = listView.Items[row];
+            var next = items[row];
+            current.ToolTipText = next.ToolTipText;
+            for (var column = 0; column < next.SubItems.Count; column++)
+            {
+                var nextText = next.SubItems[column].Text;
+                if (current.SubItems[column].Text != nextText)
+                {
+                    current.SubItems[column].Text = nextText;
+                }
+            }
+        }
+
         listView.EndUpdate();
     }
 }

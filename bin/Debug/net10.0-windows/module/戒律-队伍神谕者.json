@@ -19,13 +19,6 @@
       ]
     },
     {
-      "Name": "最低单位",
-      "HealthName": "最低单位值",
-      "Kind": "LowestHealth",
-      "HealthThreshold": 99,
-      "Reverse": false
-    },
-    {
       "Name": "驱散单位",
       "Kind": "UnitWithDispelType",
       "Reverse": false,
@@ -39,6 +32,23 @@
       "Reverse": false,
       "AuraNames": [
         "真言术：盾"
+      ]
+    },
+    {
+      "Name": "最低单位",
+      "HealthName": "最低单位值",
+      "Kind": "LowestHealth",
+      "HealthThreshold": 101,
+      "Reverse": false
+    },
+    {
+      "Name": "无救赎最低",
+      "HealthName": "无救赎最低值",
+      "Kind": "LowestHealthWithoutAura",
+      "HealthThreshold": 101,
+      "Reverse": false,
+      "AuraNames": [
+        "救赎"
       ]
     }
   ],
@@ -94,12 +104,6 @@
       "Condition": "施法技能 == 34",
       "Field": "涌动层数",
       "Delta": -1
-    },
-    {
-      "Enabled": true,
-      "Condition": "施法技能 == 34 && 最低单位 == true",
-      "Field": "最低单位值",
-      "Delta": 30
     },
     {
       "Enabled": true,
@@ -234,7 +238,7 @@
     },
     {
       "Enabled": true,
-      "Condition": "战斗 == false && 目标类型 in (1, 2, 3) && 一键辅助 == 14",
+      "Condition": "战斗 == true && 目标类型 in (1, 2, 3) && 一键辅助 == 14",
       "Unit": 0,
       "Spell": "暗言术：痛",
       "Hotkey": "",
@@ -266,6 +270,94 @@
     },
     {
       "Enabled": true,
+      "Condition": "spells.真言术：耀 == 0 && 福音层数 > 0 && 耀层数 == 2 && 耀90 >= 2",
+      "Unit": 0,
+      "Spell": "真言术：耀",
+      "Hotkey": "",
+      "Step": ""
+    },
+    {
+      "Enabled": true,
+      "Condition": "spells.真言术：耀 == 0 && 福音层数 > 0 && 耀层数 == 1 && 耀80 >= 2",
+      "Unit": 0,
+      "Spell": "真言术：耀",
+      "Hotkey": "",
+      "Step": ""
+    },
+    {
+      "Enabled": true,
+      "Condition": "spells.真言术：耀 == 0 && 福音层数 > 0 && 耀层数 == 2 && C85 >= 2",
+      "Unit": 0,
+      "Spell": "真言术：耀",
+      "Hotkey": "",
+      "Step": ""
+    },
+    {
+      "Enabled": true,
+      "Condition": "spells.真言术：耀 == 0 && 福音层数 > 0 && 耀层数 == 1 && C80 >= 2",
+      "Unit": 0,
+      "Spell": "真言术：耀",
+      "Hotkey": "",
+      "Step": ""
+    },
+    {
+      "Enabled": true,
+      "Condition": "spells.苦修 == 0 && 虚空之盾 == 0 && 最低单位 == true && 最低单位值 <= 70",
+      "UnitName": "最低单位",
+      "Spell": "苦修",
+      "Hotkey": "",
+      "Step": ""
+    },
+    {
+      "Enabled": true,
+      "Condition": "暗影层数 == 0 && 圣光涌动 > 0 && 无救赎最低 == true && 无救赎最低值 <= 90",
+      "UnitName": "无救赎最低",
+      "Spell": "快速治疗",
+      "Hotkey": "",
+      "Step": ""
+    },
+    {
+      "Enabled": true,
+      "Condition": "暗影层数 == 0 && 圣光涌动 > 0 && 最低单位 == true && 最低单位值 <= 80",
+      "UnitName": "最低单位",
+      "Spell": "快速治疗",
+      "Hotkey": "",
+      "Step": ""
+    },
+    {
+      "Enabled": true,
+      "Condition": "spells.真言术：盾 == 0 && 无盾最低 == true && 无盾最低值 <= 70",
+      "UnitName": "无盾最低",
+      "Spell": "真言术：盾",
+      "Hotkey": "",
+      "Step": ""
+    },
+    {
+      "Enabled": true,
+      "Condition": "spells.真言术：盾 == 0 && 无救赎最低 == true && 无救赎最低值 <= 90",
+      "UnitName": "无救赎最低",
+      "Spell": "真言术：盾",
+      "Hotkey": "",
+      "Step": ""
+    },
+    {
+      "Enabled": true,
+      "Condition": "spells.真言术：盾 == 0 && 无盾坦克 == true && 战斗 == false",
+      "UnitName": "无盾坦克",
+      "Spell": "真言术：盾",
+      "Hotkey": "",
+      "Step": ""
+    },
+    {
+      "Enabled": true,
+      "Condition": "spells.真言术：盾 == 0 && 无盾最低 == true",
+      "UnitName": "无盾最低",
+      "Spell": "真言术：盾",
+      "Hotkey": "",
+      "Step": ""
+    },
+    {
+      "Enabled": true,
       "Condition": "spells.真言术：盾 == 0 && 无盾坦克 == true",
       "UnitName": "无盾坦克",
       "Spell": "真言术：盾",
@@ -274,9 +366,49 @@
     },
     {
       "Enabled": true,
-      "Condition": "spells.真言术：耀 == 0 && 福音层数 > 0 && 耀层数 == 2 && 耀90 >= 3",
+      "Condition": "spells.真言术：耀 == 0 && 移动 == false && 耀90 >= 3 && 耀层数 == 2",
       "Unit": 0,
       "Spell": "真言术：耀",
+      "Hotkey": "",
+      "Step": ""
+    },
+    {
+      "Enabled": true,
+      "Condition": "战斗 == true && 目标类型 in (1, 2, 3) && spells.暗言术：灭 == 0 && 有救赎数量 > 0",
+      "Unit": 0,
+      "Spell": "暗言术：灭",
+      "Hotkey": "",
+      "Step": ""
+    },
+    {
+      "Enabled": true,
+      "Condition": "战斗 == true && 目标类型 in (1, 2, 3) && spells.心灵震爆 == 0 && spells.暗影分流 == 0 && 有救赎数量 == 0 && 移动 == false",
+      "Unit": 0,
+      "Spell": "心灵震爆",
+      "Hotkey": "",
+      "Step": ""
+    },
+    {
+      "Enabled": true,
+      "Condition": "战斗 == true && 目标类型 in (1, 2, 3) && spells.苦修 == 0 && 苦修层数 == 2",
+      "Unit": 0,
+      "Spell": "苦修",
+      "Hotkey": "",
+      "Step": ""
+    },
+    {
+      "Enabled": true,
+      "Condition": "战斗 == true && 目标类型 in (1, 2, 3) && spells.苦修 == 0 && 苦修层数 == 1 && spells.苦修充能 <= 3",
+      "Unit": 0,
+      "Spell": "苦修",
+      "Hotkey": "",
+      "Step": ""
+    },
+    {
+      "Enabled": true,
+      "Condition": "战斗 == true && 目标类型 in (1, 2, 3) && 移动 == false",
+      "Unit": 0,
+      "Spell": "惩击",
       "Hotkey": "",
       "Step": ""
     }
