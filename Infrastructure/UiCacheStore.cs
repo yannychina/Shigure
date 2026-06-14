@@ -8,7 +8,7 @@ internal static class UiCacheStore
     private const string CacheFileName = "window-state.json";
     private static readonly JsonSerializerOptions JsonOptions = new() { WriteIndented = true };
 
-    private static string CacheDirectory => Path.Combine(AppContext.BaseDirectory, CacheFolderName);
+    private static string CacheDirectory => Path.Combine(AppPaths.BaseDirectory, CacheFolderName);
     private static string CacheFilePath => Path.Combine(CacheDirectory, CacheFileName);
 
     public static UiCacheState Load()

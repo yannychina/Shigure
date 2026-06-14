@@ -329,9 +329,9 @@ public sealed class StatusForm : Form
         AddAboutRow(details, "版本", version);
         AddAboutRow(details, "类型", ".NET WinForms 桌面程序");
         AddAboutRow(details, "用途", "扫描游戏窗口状态，根据模块规则和按键映射执行辅助逻辑。");
-        AddAboutRow(details, "运行目录", AppContext.BaseDirectory);
-        AddAboutRow(details, "模块目录", ModuleStore.ResolveModuleDirectory(AppContext.BaseDirectory));
-        AddAboutRow(details, "配置文件", Path.Combine(AppContext.BaseDirectory, "config.json"));
+        AddAboutRow(details, "运行目录", AppPaths.BaseDirectory);
+        AddAboutRow(details, "模块目录", ModuleStore.ResolveModuleDirectory(AppPaths.BaseDirectory));
+        AddAboutRow(details, "配置文件", Path.Combine(AppPaths.BaseDirectory, "config.json"));
 
         panel.Controls.Add(details, 0, 1);
         return panel;

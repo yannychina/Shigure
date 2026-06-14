@@ -153,4 +153,4 @@ C:\Users\bianw\OneDrive\VS Code\Shigure\bin\Debug\net10.0-windows\Assets\arasaka
 C:\Users\bianw\OneDrive\VS Code\Shigure\bin\Debug\net10.0-windows\Assets\arasaka-icon-64.png
 C:\Users\bianw\OneDrive\VS Code\Shigure\bin\Debug\net10.0-windows\Assets\arasaka-icon-transparent.png
 C:\Users\bianw\OneDrive\VS Code\Shigure\bin\Debug\net10.0-windows\Assets\arasaka-logo-transparent.png
-C:\Users\bianw\OneDrive\VS Code\Shigure\bin\Debug\net10.0-windows\module\邪DK-官方一键.json
+C:\Users\bianw\OneDrive\VS Code\Shigure\bin\Debug\net10.0-windows\module\DK-官方一键.json

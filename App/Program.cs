@@ -15,6 +15,11 @@ internal static class Program
             return;
         }
 
+        if (RandomizedExecutableLauncher.TryRelaunch(args))
+        {
+            return;
+        }
+
         ApplicationConfiguration.Initialize();
         Application.Run(new MainForm(AppOptions.FromArgs(args)));
     }

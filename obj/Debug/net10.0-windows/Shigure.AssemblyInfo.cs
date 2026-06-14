@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Shigure")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+82333279a8efc670d10c5b7e36d1e43c641bc28a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+37171a1e629aced94e5da08b5136287b9548fa8d")]
 [assembly: System.Reflection.AssemblyProductAttribute("Shigure")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Shigure")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

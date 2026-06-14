@@ -247,8 +247,8 @@ public sealed class ModuleStore
 
     public static string ResolveModuleDirectory(string baseDirectory)
     {
-        var currentModuleDirectory = Path.Combine(Environment.CurrentDirectory, "module");
-        if (Directory.Exists(currentModuleDirectory) || File.Exists(Path.Combine(Environment.CurrentDirectory, "Shigure.csproj")))
+        var currentModuleDirectory = Path.Combine(baseDirectory, "module");
+        if (Directory.Exists(currentModuleDirectory) || File.Exists(Path.Combine(baseDirectory, "Shigure.csproj")))
         {
             return currentModuleDirectory;
         }

@@ -42,12 +42,12 @@ public sealed class MainForm : Form, IMessageFilter
     {
         _initialOptions = initialOptions ?? AppOptions.FromArgs(Array.Empty<string>());
         _uiCache = UiCacheStore.Load();
-        _moduleStore = new ModuleStore(ModuleStore.ResolveModuleDirectory(AppContext.BaseDirectory));
+        _moduleStore = new ModuleStore(ModuleStore.ResolveModuleDirectory(AppPaths.BaseDirectory));
         _statusForm = new StatusForm();
         Application.AddMessageFilter(this);
         InitializeComponent();
         _statusForm.AttachSettingsPanel(BuildSettingsPanel());
-        _statusForm.AttachModuleEditor(new ModuleEditorControl(_moduleStore, RestartRuntimeFromEditor, AppContext.BaseDirectory));
+        _statusForm.AttachModuleEditor(new ModuleEditorControl(_moduleStore, RestartRuntimeFromEditor, AppPaths.BaseDirectory));
         _statusForm.FormClosing += (_, _) =>
         {
             CancelToggleKeyCapture();
@@ -239,7 +239,7 @@ public sealed class MainForm : Form, IMessageFilter
             Anchor = AnchorStyles.Left
         };
 
-        var path = Path.Combine(AppContext.BaseDirectory, HeaderIconPath);
+        var path = Path.Combine(AppPaths.BaseDirectory, HeaderIconPath);
         if (File.Exists(path))
         {
             using var image = Image.FromFile(path);
@@ -437,7 +437,7 @@ public sealed class MainForm : Form, IMessageFilter
         {
             _runtimeCts = new CancellationTokenSource();
             _moduleStore.Reload();
-            _runtime = new ShigureRuntime(AppContext.BaseDirectory, options, _moduleStore);
+            _runtime = new ShigureRuntime(AppPaths.BaseDirectory, options, _moduleStore);
             _runtime.SnapshotUpdated += HandleSnapshotUpdated;
             _runtimeTask = Task.Run(() => RunRuntimeAsync(_runtime, _runtimeCts.Token));
         }
