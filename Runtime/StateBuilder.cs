@@ -20,7 +20,7 @@ public sealed class StateBuilder
 
         foreach (var (key, node) in stateConfig)
         {
-            if (key is "group" or "spells" || node is not JsonObject field || !field.ContainsKey("step"))
+            if (key is "group" or "spells" or "auras" || node is not JsonObject field || !field.ContainsKey("step"))
             {
                 continue;
             }
@@ -30,18 +30,12 @@ public sealed class StateBuilder
 
         if (JsonHelpers.Get(stateConfig, "spells") is JsonObject spellsConfig)
         {
-            var spells = new Dictionary<string, object?>();
-            foreach (var (spellName, node) in spellsConfig)
-            {
-                if (node is not JsonObject field || !field.ContainsKey("step"))
-                {
-                    continue;
-                }
+            result["spells"] = BuildFieldMap(spellsConfig, rowData, barData);
+        }
 
-                spells[spellName] = ConvertRawValue(ResolveRaw(field, rowData, barData), JsonHelpers.GetString(JsonHelpers.Get(field, "type")));
-            }
-
-            result["spells"] = spells;
+        if (JsonHelpers.Get(stateConfig, "auras") is JsonObject aurasConfig)
+        {
+            result["auras"] = BuildFieldMap(aurasConfig, rowData, barData);
         }
 
         if (JsonHelpers.Get(stateConfig, "group") is JsonObject groupConfig)
@@ -51,6 +45,25 @@ public sealed class StateBuilder
         }
 
         return new GameState(result);
+    }
+
+    private static Dictionary<string, object?> BuildFieldMap(
+        JsonObject fieldsConfig,
+        IReadOnlyDictionary<int, int> rowData,
+        IReadOnlyDictionary<int, int> barData)
+    {
+        var values = new Dictionary<string, object?>();
+        foreach (var (fieldName, node) in fieldsConfig)
+        {
+            if (node is not JsonObject field || !field.ContainsKey("step"))
+            {
+                continue;
+            }
+
+            values[fieldName] = ConvertRawValue(ResolveRaw(field, rowData, barData), JsonHelpers.GetString(JsonHelpers.Get(field, "type")));
+        }
+
+        return values;
     }
 
     private static Dictionary<string, IReadOnlyDictionary<string, object?>> BuildGroup(

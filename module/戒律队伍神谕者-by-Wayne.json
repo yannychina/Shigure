@@ -97,7 +97,7 @@
     {
       "Enabled": true,
       "Condition": "施法技能 == 34",
-      "Field": "暗影层数",
+      "Field": "auras.暗影层数",
       "Delta": -1,
       "Formula": ""
     },
@@ -196,7 +196,7 @@
     },
     {
       "Enabled": true,
-      "Condition": "暗影愈合 >= 1 && 暗影愈合 == 2 && 最低单位 == true && 最低单位值 <= 75 && 圣光涌动 == 0 && 移动 == false",
+      "Condition": "auras.暗影愈合 >= 1 && auras.暗影愈合 == 2 && 最低单位 == true && 最低单位值 <= 75 && auras.圣光涌动 == 0 && 移动 == false",
       "UnitName": "最低单位",
       "Spell": "快速治疗",
       "Hotkey": "",
@@ -204,7 +204,7 @@
     },
     {
       "Enabled": true,
-      "Condition": "暗影愈合 == 2 && 最低单位 == true && 最低单位值 <= 75 && 圣光涌动 > 0",
+      "Condition": "auras.暗影愈合 == 2 && 最低单位 == true && 最低单位值 <= 75 && auras.圣光涌动 > 0",
       "UnitName": "最低单位",
       "Spell": "快速治疗",
       "Hotkey": "",
@@ -212,7 +212,7 @@
     },
     {
       "Enabled": true,
-      "Condition": "暗影愈合 >= 1 && 暗影愈合 == 1 && 最低单位 == true && 最低单位值 <= 65 && 圣光涌动 == 0 && 移动 == false",
+      "Condition": "auras.暗影愈合 >= 1 && auras.暗影愈合 == 1 && 最低单位 == true && 最低单位值 <= 65 && auras.圣光涌动 == 0 && 移动 == false",
       "UnitName": "最低单位",
       "Spell": "快速治疗",
       "Hotkey": "",
@@ -220,7 +220,7 @@
     },
     {
       "Enabled": true,
-      "Condition": "暗影愈合 == 1 && 最低单位 == true && 最低单位值 <= 65 && 圣光涌动 > 0",
+      "Condition": "auras.暗影愈合 == 1 && 最低单位 == true && 最低单位值 <= 65 && auras.圣光涌动 > 0",
       "UnitName": "最低单位",
       "Spell": "快速治疗",
       "Hotkey": "",
@@ -228,7 +228,7 @@
     },
     {
       "Enabled": true,
-      "Condition": "spells.真言术：盾 == 0 && 虚空之盾 > 0 && 无盾最低 == true",
+      "Condition": "spells.真言术：盾 == 0 && auras.虚空之盾 > 0 && 无盾最低 == true",
       "UnitName": "无盾最低",
       "Spell": "真言术：盾",
       "Hotkey": "",
@@ -260,7 +260,7 @@
     },
     {
       "Enabled": true,
-      "Condition": "spells.福音 == 0 && 福音层数 == 0 && C90 >= 3",
+      "Condition": "spells.福音 == 0 && auras.福音层数 == 0 && C90 >= 3",
       "Unit": 0,
       "Spell": "福音",
       "Hotkey": "",
@@ -268,7 +268,7 @@
     },
     {
       "Enabled": true,
-      "Condition": "spells.福音 == 0 && 福音层数 == 0 && 耀90 >= 2",
+      "Condition": "spells.福音 == 0 && auras.福音层数 == 0 && 耀90 >= 2",
       "Unit": 0,
       "Spell": "福音",
       "Hotkey": "",
@@ -276,7 +276,7 @@
     },
     {
       "Enabled": true,
-      "Condition": "spells.真言术：耀 == 0 && 福音层数 > 0 && 耀层数 == 2 && 耀90 >= 2",
+      "Condition": "spells.真言术：耀 == 0 && auras.福音层数 > 0 && 耀层数 == 2 && 耀90 >= 2",
       "Unit": 0,
       "Spell": "真言术：耀",
       "Hotkey": "",
@@ -284,7 +284,7 @@
     },
     {
       "Enabled": true,
-      "Condition": "spells.真言术：耀 == 0 && 福音层数 > 0 && 耀层数 == 1 && 耀80 >= 2",
+      "Condition": "spells.真言术：耀 == 0 && auras.福音层数 > 0 && 耀层数 == 1 && 耀80 >= 2",
       "Unit": 0,
       "Spell": "真言术：耀",
       "Hotkey": "",
@@ -292,7 +292,7 @@
     },
     {
       "Enabled": true,
-      "Condition": "spells.真言术：耀 == 0 && 福音层数 > 0 && 耀层数 == 2 && C85 >= 2",
+      "Condition": "spells.真言术：耀 == 0 && auras.福音层数 > 0 && 耀层数 == 2 && C85 >= 2",
       "Unit": 0,
       "Spell": "真言术：耀",
       "Hotkey": "",
@@ -300,7 +300,7 @@
     },
     {
       "Enabled": true,
-      "Condition": "spells.真言术：耀 == 0 && 福音层数 > 0 && 耀层数 == 1 && C80 >= 2",
+      "Condition": "spells.真言术：耀 == 0 && auras.福音层数 > 0 && 耀层数 == 1 && C80 >= 2",
       "Unit": 0,
       "Spell": "真言术：耀",
       "Hotkey": "",
@@ -308,7 +308,7 @@
     },
     {
       "Enabled": true,
-      "Condition": "spells.苦修 == 0 && 虚空之盾 == 0 && 最低单位 == true && 最低单位值 <= 70",
+      "Condition": "spells.苦修 == 0 && auras.虚空之盾 == 0 && 最低单位 == true && 最低单位值 <= 70",
       "UnitName": "最低单位",
       "Spell": "苦修",
       "Hotkey": "",
@@ -316,7 +316,7 @@
     },
     {
       "Enabled": true,
-      "Condition": "暗影层数 == 0 && 圣光涌动 > 0 && 无救赎最低 == true && 无救赎最低值 <= 90",
+      "Condition": "auras.暗影层数 == 0 && auras.圣光涌动 > 0 && 无救赎最低 == true && 无救赎最低值 <= 90",
       "UnitName": "无救赎最低",
       "Spell": "快速治疗",
       "Hotkey": "",
@@ -324,7 +324,7 @@
     },
     {
       "Enabled": true,
-      "Condition": "暗影层数 == 0 && 圣光涌动 > 0 && 最低单位 == true && 最低单位值 <= 80",
+      "Condition": "auras.暗影层数 == 0 && auras.圣光涌动 > 0 && 最低单位 == true && 最低单位值 <= 80",
       "UnitName": "最低单位",
       "Spell": "快速治疗",
       "Hotkey": "",

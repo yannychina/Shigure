@@ -12,6 +12,7 @@ public enum ConditionFieldType
 public enum ConditionFieldCategory
 {
     State,
+    Aura,
     Spell,
     DynamicUnit
 }
@@ -67,7 +68,7 @@ public sealed class ConditionFieldCatalog
 
         foreach (var (key, node) in stateConfig)
         {
-            if (key is "group" or "spells")
+            if (key is "group" or "spells" or "auras")
             {
                 continue;
             }
@@ -75,6 +76,17 @@ public sealed class ConditionFieldCatalog
             if (node is JsonObject field && field.ContainsKey("step"))
             {
                 AddField(fields, seen, key, key, ReadType(field), ConditionFieldCategory.State);
+            }
+        }
+
+        if (JsonHelpers.Get(stateConfig, "auras") is JsonObject auras)
+        {
+            foreach (var (auraName, node) in auras)
+            {
+                if (node is JsonObject field && field.ContainsKey("step"))
+                {
+                    AddField(fields, seen, $"auras.{auraName}", $"光环: {auraName}", ReadType(field), ConditionFieldCategory.Aura);
+                }
             }
         }
 

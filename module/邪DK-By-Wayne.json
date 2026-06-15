@@ -1,0 +1,389 @@
+{
+  "Id": "新模块1-20260615104504550",
+  "Name": "邪DK By Wayne",
+  "Enabled": true,
+  "Match": {
+    "ClassId": 6,
+    "SpecId": 3,
+    "HeroTalent": 3
+  },
+  "Units": [],
+  "Counts": [],
+  "ValueAdjustments": [],
+  "Rules": [
+    {
+      "Enabled": true,
+      "Condition": "引导 > 0 || 延迟 > 0",
+      "Spell": "暂停",
+      "Hotkey": "",
+      "Step": ""
+    },
+    {
+      "Enabled": true,
+      "Condition": "一键辅助 == 13",
+      "Unit": 0,
+      "Spell": "亡者复生",
+      "Hotkey": "",
+      "Step": ""
+    },
+    {
+      "Enabled": true,
+      "Condition": "战斗时间 == 0 || 目标类型 == 0 || 目标类型 >= 10",
+      "Spell": "暂停",
+      "Hotkey": "",
+      "Step": ""
+    },
+    {
+      "Enabled": true,
+      "Condition": "生命值 <= 30 && auras.黑暗援助 > 0",
+      "Unit": 0,
+      "Spell": "灵界打击",
+      "Hotkey": "",
+      "Step": ""
+    },
+    {
+      "Enabled": true,
+      "Condition": "生命值 <= 30 && 能量值 >= 40",
+      "Unit": 0,
+      "Spell": "灵界打击",
+      "Hotkey": "",
+      "Step": ""
+    },
+    {
+      "Enabled": true,
+      "Condition": "auras.脓疮毒镰2 >= 0 && auras.脓疮毒镰2 <= 1 && auras.脓疮毒镰 > 0 && 目标距离 <= 5",
+      "Unit": 0,
+      "Spell": "脓疮打击",
+      "Hotkey": "",
+      "Step": ""
+    },
+    {
+      "Enabled": true,
+      "Condition": "符文 >= 2 && auras.脓疮毒镰2 <= 3 && auras.脓疮毒镰 == 0 && 目标距离 <= 5",
+      "Unit": 0,
+      "Spell": "脓疮打击",
+      "Hotkey": "",
+      "Step": ""
+    },
+    {
+      "Enabled": true,
+      "Condition": "一键辅助 == 6 || 疾病判断 == 1",
+      "Unit": 0,
+      "Spell": "爆发",
+      "Hotkey": "",
+      "Step": ""
+    },
+    {
+      "Enabled": true,
+      "Condition": "爆发药水开关 == 1 && 鲁莽药水冷却 == 0 && 爆发开关 == 1 && spells.黑暗突变 == 0 && spells.亡者大军 == 0",
+      "Unit": 0,
+      "Spell": "鲁莽药水",
+      "Hotkey": "",
+      "Step": ""
+    },
+    {
+      "Enabled": true,
+      "Condition": "爆发开关 == 1 && spells.黑暗突变 == 0 && spells.亡者大军 == 0",
+      "Unit": 0,
+      "Spell": "亡者大军",
+      "Hotkey": "",
+      "Step": ""
+    },
+    {
+      "Enabled": true,
+      "Condition": "spells.黑暗突变 == 0 && spells.亡者大军 > 38",
+      "Unit": 0,
+      "Spell": "黑暗突变",
+      "Hotkey": "",
+      "Step": ""
+    },
+    {
+      "Enabled": true,
+      "Condition": "符文 > 0 && spells.黑暗突变 > 43",
+      "Unit": 0,
+      "Spell": "天灾打击",
+      "Hotkey": "",
+      "Step": ""
+    },
+    {
+      "Enabled": true,
+      "Condition": "spells.灵魂收割 == 0 && auras.腐化层数 == 0 && 首领战 > 0 && 目标生命值 <= 35",
+      "Unit": 0,
+      "Spell": "灵魂收割",
+      "Hotkey": "",
+      "Step": ""
+    },
+    {
+      "Enabled": true,
+      "Condition": "spells.灵魂收割 == 0 && auras.腐化层数 == 0 && 首领战 > 0 && auras.割魂索命 > 0",
+      "Unit": 0,
+      "Spell": "灵魂收割",
+      "Hotkey": "",
+      "Step": ""
+    },
+    {
+      "Enabled": true,
+      "Condition": "spells.灵魂收割 >= 0 && spells.灵魂收割 <= 1 && auras.腐化层数 >= 2 && auras.亡者指挥官 > 1 && 目标生命值 <= 35",
+      "Unit": 0,
+      "Spell": "灵魂收割",
+      "Hotkey": "",
+      "Step": ""
+    },
+    {
+      "Enabled": true,
+      "Condition": "spells.灵魂收割 >= 0 && spells.灵魂收割 <= 1 && auras.腐化层数 >= 2 && auras.亡者指挥官 > 1 && auras.割魂索命 > 0",
+      "Unit": 0,
+      "Spell": "灵魂收割",
+      "Hotkey": "",
+      "Step": ""
+    },
+    {
+      "Enabled": true,
+      "Condition": "爆发开关 == 0 && auras.腐化层数 >= 2 && 首领战 > 0 && spells.灵魂收割 >= 0 && spells.灵魂收割 <= 1 && 目标生命值 < 35",
+      "Unit": 0,
+      "Spell": "灵魂收割",
+      "Hotkey": "",
+      "Step": ""
+    },
+    {
+      "Enabled": true,
+      "Condition": "爆发开关 == 0 && auras.腐化层数 >= 2 && 首领战 > 0 && spells.灵魂收割 >= 0 && spells.灵魂收割 <= 1 && auras.割魂索命 > 0",
+      "Unit": 0,
+      "Spell": "灵魂收割",
+      "Hotkey": "",
+      "Step": ""
+    },
+    {
+      "Enabled": true,
+      "Condition": "爆发开关 == 0 && auras.腐化层数 == 2 && 首领战 == 0 && spells.灵魂收割 >= 0 && spells.灵魂收割 <= 1 && spells.黑暗突变 > 20 && 目标生命值 > 15 && 目标生命值 < 35",
+      "Unit": 0,
+      "Spell": "灵魂收割",
+      "Hotkey": "",
+      "Step": ""
+    },
+    {
+      "Enabled": true,
+      "Condition": "爆发开关 == 0 && auras.腐化层数 == 3 && 首领战 == 0 && spells.灵魂收割 >= 0 && spells.灵魂收割 <= 1 && spells.亡者大军 > 60 && 目标生命值 > 5 && 目标生命值 < 35",
+      "Unit": 0,
+      "Spell": "灵魂收割",
+      "Hotkey": "",
+      "Step": ""
+    },
+    {
+      "Enabled": true,
+      "Condition": "爆发开关 == 0 && auras.腐化层数 == 2 && 首领战 == 0 && spells.灵魂收割 >= 0 && spells.灵魂收割 <= 1 && spells.黑暗突变 > 20 && auras.割魂索命 > 0",
+      "Unit": 0,
+      "Spell": "灵魂收割",
+      "Hotkey": "",
+      "Step": ""
+    },
+    {
+      "Enabled": true,
+      "Condition": "爆发开关 == 0 && auras.腐化层数 == 3 && 首领战 == 0 && spells.灵魂收割 >= 0 && spells.灵魂收割 <= 1 && spells.亡者大军 > 60 && auras.割魂索命 > 0",
+      "Unit": 0,
+      "Spell": "灵魂收割",
+      "Hotkey": "",
+      "Step": ""
+    },
+    {
+      "Enabled": true,
+      "Condition": "腐化层数 >= 2 && auras.亡者指挥官 > 1 && spells.灵魂收割 > 1",
+      "Unit": 0,
+      "Spell": "腐化",
+      "Hotkey": "",
+      "Step": ""
+    },
+    {
+      "Enabled": true,
+      "Condition": "爆发开关 == 0 && auras.腐化层数 == 2 && 首领战 > 0 && spells.灵魂收割 == 0 && spells.亡者大军 > 30",
+      "Unit": 0,
+      "Spell": "腐化",
+      "Hotkey": "",
+      "Step": ""
+    },
+    {
+      "Enabled": true,
+      "Condition": "爆发开关 == 0 && auras.腐化层数 == 2 && 首领战 == 0 && spells.灵魂收割 == 0 && spells.黑暗突变 > 20 && 目标生命值 > 50",
+      "Unit": 0,
+      "Spell": "腐化",
+      "Hotkey": "",
+      "Step": ""
+    },
+    {
+      "Enabled": true,
+      "Condition": "爆发开关 == 0 && auras.腐化层数 == 3 && 首领战 > 0 && spells.灵魂收割 == 0 && spells.亡者大军 > 15",
+      "Unit": 0,
+      "Spell": "腐化",
+      "Hotkey": "",
+      "Step": ""
+    },
+    {
+      "Enabled": true,
+      "Condition": "爆发开关 == 0 && auras.腐化层数 == 3 && 首领战 == 0 && spells.灵魂收割 == 0 && spells.亡者大军 > 60 && 目标生命值 > 50",
+      "Unit": 0,
+      "Spell": "腐化",
+      "Hotkey": "",
+      "Step": ""
+    },
+    {
+      "Enabled": true,
+      "Condition": "auras.禁断知识 > 0 && auras.禁断知识 <= 5 && 能量值 >= 30 && 敌人人数 < 3",
+      "Unit": 0,
+      "Spell": "凋零缠绕",
+      "Hotkey": "",
+      "Step": ""
+    },
+    {
+      "Enabled": true,
+      "Condition": "auras.禁断知识 > 0 && auras.禁断知识 <= 5 && 能量值 >= 30 && 敌人人数 >= 3",
+      "Unit": 0,
+      "Spell": "扩散",
+      "Hotkey": "",
+      "Step": ""
+    },
+    {
+      "Enabled": true,
+      "Condition": "脓疮毒镰 > 0 && 目标距离 <= 5 && 脓疮毒镰2 == 0",
+      "Unit": 0,
+      "Spell": "脓疮打击",
+      "Hotkey": "",
+      "Step": ""
+    },
+    {
+      "Enabled": true,
+      "Condition": "脓疮毒镰 > 0 && 目标距离 <= 5 && 脓疮毒镰 < 3",
+      "Unit": 0,
+      "Spell": "脓疮打击",
+      "Hotkey": "",
+      "Step": ""
+    },
+    {
+      "Enabled": true,
+      "Condition": "移动 == false && auras.凋零层数 > 0 && 能量值 < 90 && auras.亡者指挥官 > 0 && 敌人人数 >= 3",
+      "Unit": 0,
+      "Spell": "枯萎凋零",
+      "Hotkey": "",
+      "Step": ""
+    },
+    {
+      "Enabled": true,
+      "Condition": "移动 == false && auras.凋零层数 > 0 && 能量值 < 90 && auras.亡者指挥官 > 0 && 首领战 == 70",
+      "Unit": 0,
+      "Spell": "枯萎凋零",
+      "Hotkey": "",
+      "Step": ""
+    },
+    {
+      "Enabled": true,
+      "Condition": "符文 > 0 && spells.黑暗突变 >= 25 && 能量值 < 30",
+      "Unit": 0,
+      "Spell": "天灾打击",
+      "Hotkey": "",
+      "Step": ""
+    },
+    {
+      "Enabled": true,
+      "Condition": "auras.末日突降 >= 1 && 能量值 >= 15 && 敌人人数 >= 3",
+      "Unit": 0,
+      "Spell": "扩散",
+      "Hotkey": "",
+      "Step": ""
+    },
+    {
+      "Enabled": true,
+      "Condition": "能量值 >= 80 && 敌人人数 >= 3",
+      "Unit": 0,
+      "Spell": "扩散",
+      "Hotkey": "",
+      "Step": ""
+    },
+    {
+      "Enabled": true,
+      "Condition": "auras.末日突降 >= 1 && 能量值 >= 15 && 敌人人数 < 3",
+      "Unit": 0,
+      "Spell": "凋零缠绕",
+      "Hotkey": "",
+      "Step": ""
+    },
+    {
+      "Enabled": true,
+      "Condition": "能量值 >= 80 && 敌人人数 < 3",
+      "Unit": 0,
+      "Spell": "凋零缠绕",
+      "Hotkey": "",
+      "Step": ""
+    },
+    {
+      "Enabled": true,
+      "Condition": "符文 > 0 && 能量值 < 30 && auras.食尸鬼层数 > 6",
+      "Unit": 0,
+      "Spell": "天灾打击",
+      "Hotkey": "",
+      "Step": ""
+    },
+    {
+      "Enabled": true,
+      "Condition": "auras.禁断知识 > 0 && auras.禁断知识 <= 5 && 能量值 >= 30 && 敌人人数 >= 3",
+      "Unit": 0,
+      "Spell": "扩散",
+      "Hotkey": "",
+      "Step": ""
+    },
+    {
+      "Enabled": true,
+      "Condition": "auras.禁断知识 > 0 && auras.禁断知识 <= 5 && 能量值 >= 30 && 敌人人数 < 3",
+      "Unit": 0,
+      "Spell": "凋零缠绕",
+      "Hotkey": "",
+      "Step": ""
+    },
+    {
+      "Enabled": true,
+      "Condition": "符文 >= 2 && 目标距离 <= 5 && auras.食尸鬼层数 == 0",
+      "Unit": 0,
+      "Spell": "脓疮打击",
+      "Hotkey": "",
+      "Step": ""
+    },
+    {
+      "Enabled": true,
+      "Condition": "符文 >= 2 && 目标距离 <= 5 && 脓疮毒镰2 == 0",
+      "Unit": 0,
+      "Spell": "脓疮打击",
+      "Hotkey": "",
+      "Step": ""
+    },
+    {
+      "Enabled": true,
+      "Condition": "auras.凋萎 > 0 && spells.黑暗突变 == 0 && auras.食尸鬼层数 > 0 && 符文 > 0",
+      "Unit": 0,
+      "Spell": "天灾打击",
+      "Hotkey": "",
+      "Step": ""
+    },
+    {
+      "Enabled": true,
+      "Condition": "能量值 >= 30 && 敌人人数 >= 3",
+      "Unit": 0,
+      "Spell": "扩散",
+      "Hotkey": "",
+      "Step": ""
+    },
+    {
+      "Enabled": true,
+      "Condition": "能量值 >= 30 && 敌人人数 < 3",
+      "Unit": 0,
+      "Spell": "凋零缠绕",
+      "Hotkey": "",
+      "Step": ""
+    },
+    {
+      "Enabled": true,
+      "Condition": "符文 > 0 && auras.食尸鬼层数 > 0",
+      "Unit": 0,
+      "Spell": "天灾打击",
+      "Hotkey": "",
+      "Step": ""
+    }
+  ]
+}

@@ -41,42 +41,6 @@
             "step": 23,
             "type": "int"
         },
-        "虚空之盾": {
-            "step": 24,
-            "type": "int"
-        },
-        "圣光涌动": {
-            "step": 25,
-            "type": "int"
-        },
-        "涌动层数": {
-            "step": 26,
-            "type": "int"
-        },
-        "熵能裂隙": {
-            "step": 27,
-            "type": "int"
-        },
-        "暗影愈合": {
-            "step": 28,
-            "type": "int"
-        },
-        "暗影层数": {
-            "step": 29,
-            "type": "int"
-        },
-        "福音层数": {
-            "step": 30,
-            "type": "int"
-        },
-        "祸福相依": {
-            "step": 46,
-            "type": "int"
-        },
-        "祸福层数": {
-            "step": 47,
-            "type": "int"
-        },
         "延迟": {
             "step": 48,
             "type": "int"
@@ -106,6 +70,44 @@
             "step": "bar",
             "bar": 2,
             "type": "int"
+        },
+        "auras": {
+            "虚空之盾": {
+                "step": 24,
+                "type": "int"
+            },
+            "圣光涌动": {
+                "step": 25,
+                "type": "int"
+            },
+            "涌动层数": {
+                "step": 26,
+                "type": "int"
+            },
+            "熵能裂隙": {
+                "step": 27,
+                "type": "int"
+            },
+            "暗影愈合": {
+                "step": 28,
+                "type": "int"
+            },
+            "愈合层数": {
+                "step": 29,
+                "type": "int"
+            },
+            "福音层数": {
+                "step": 30,
+                "type": "int"
+            },
+            "祸福相依": {
+                "step": 46,
+                "type": "int"
+            },
+            "祸福层数": {
+                "step": 47,
+                "type": "int"
+            }
         },
         "spells": {
             "心灵尖啸": {

@@ -9,6 +9,7 @@ public sealed class StatusForm : Form
     private bool _hasKnownBounds;
 
     private ListView _stateList = null!;
+    private ListView _auraList = null!;
     private ListView _dynamicUnitList = null!;
     private ListView _spellList = null!;
     private ListView _partyList = null!;
@@ -73,6 +74,7 @@ public sealed class StatusForm : Form
         _aboutHost = CreatePageHost();
 
         _stateList = UiTheme.CreateListView(Font, ("#", 56), ("名称", 150), ("值", 130));
+        _auraList = UiTheme.CreateListView(Font, ("#", 48), ("光环", 140), ("值", 100));
         _dynamicUnitList = UiTheme.CreateListView(Font, ("类型", 86), ("名称", 120), ("值", 160));
         _spellList = UiTheme.CreateListView(Font, ("#", 56), ("技能", 150), ("状态", 110));
 
@@ -139,18 +141,20 @@ public sealed class StatusForm : Form
         {
             Dock = DockStyle.Fill,
             BackColor = UiTheme.Surface,
-            ColumnCount = 3,
+            ColumnCount = 4,
             RowCount = 1,
             Margin = new Padding(0)
         };
-        statusSplit.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 34));
-        statusSplit.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33));
-        statusSplit.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33));
+        statusSplit.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25));
+        statusSplit.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25));
+        statusSplit.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25));
+        statusSplit.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25));
         statusSplit.RowStyles.Add(new RowStyle(SizeType.Percent, 100));
 
         statusSplit.Controls.Add(BuildSection("状态", _stateList, "基础字段与当前模块", isLast: false), 0, 0);
-        statusSplit.Controls.Add(BuildSection("动态单位", _dynamicUnitList, "模块运行时计算值", isLast: false), 1, 0);
-        statusSplit.Controls.Add(BuildSection("技能", _spellList, "冷却与可用状态", isLast: true), 2, 0);
+        statusSplit.Controls.Add(BuildSection("光环", _auraList, "光环层数与持续状态", isLast: false), 1, 0);
+        statusSplit.Controls.Add(BuildSection("技能", _spellList, "冷却与可用状态", isLast: false), 2, 0);
+        statusSplit.Controls.Add(BuildSection("动态单位", _dynamicUnitList, "模块运行时计算值"), 3, 0);
         return statusSplit;
     }
 
@@ -433,6 +437,7 @@ public sealed class StatusForm : Form
     private void UpdateLists(RenderSnapshot snapshot)
     {
         UpdateStateList(snapshot);
+        UpdateAuraList(snapshot);
         UpdateDynamicUnitList(snapshot);
         UpdateSpellList(snapshot);
         UpdatePartyList(snapshot);
@@ -457,7 +462,7 @@ public sealed class StatusForm : Form
 
             foreach (var (key, value) in snapshot.State.Values)
             {
-                if (key is "spells" or "group" || key.StartsWith('$'))
+                if (key is "spells" or "auras" or "group" || key.StartsWith('$'))
                 {
                     continue;
                 }
@@ -468,6 +473,26 @@ public sealed class StatusForm : Form
         }
 
         ReplaceItems(_stateList, items);
+    }
+
+    private void UpdateAuraList(RenderSnapshot snapshot)
+    {
+        var items = new List<ListViewItem>();
+        if (snapshot.State is null || snapshot.State.Auras.Count == 0)
+        {
+            items.Add(new ListViewItem(new[] { "-", "光环", "无数据" }));
+        }
+        else
+        {
+            var index = 0;
+            foreach (var (key, value) in snapshot.State.Auras)
+            {
+                index++;
+                items.Add(new ListViewItem(new[] { index.ToString(), key, UiTheme.FormatValue(value) }));
+            }
+        }
+
+        ReplaceItems(_auraList, items);
     }
 
     private void UpdateDynamicUnitList(RenderSnapshot snapshot)

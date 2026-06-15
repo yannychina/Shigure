@@ -1060,6 +1060,16 @@ public static class ModuleConditionEvaluator
             return state.Spells.TryGetValue(key["spell.".Length..], out var value) ? value : null;
         }
 
+        if (key.StartsWith("auras.", StringComparison.OrdinalIgnoreCase))
+        {
+            return state.Auras.TryGetValue(key["auras.".Length..], out var value) ? value : null;
+        }
+
+        if (key.StartsWith("aura.", StringComparison.OrdinalIgnoreCase))
+        {
+            return state.Auras.TryGetValue(key["aura.".Length..], out var value) ? value : null;
+        }
+
         if (ModuleSpecialActions.IsFailedSpell(key))
         {
             return ModuleSpecialActions.GetFailedSpell(state, failedSpells);

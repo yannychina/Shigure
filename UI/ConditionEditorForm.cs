@@ -152,6 +152,7 @@ public sealed class ConditionEditorForm : Form
     private static readonly CategoryItem[] CategoryItems =
     [
         new("状态", ConditionFieldCategory.State),
+        new("光环", ConditionFieldCategory.Aura),
         new("技能", ConditionFieldCategory.Spell),
         new("动态单位", ConditionFieldCategory.DynamicUnit)
     ];
@@ -477,10 +478,19 @@ public sealed class ConditionEditorForm : Form
             return field.Category;
         }
 
-        return fieldName.StartsWith("spells.", StringComparison.OrdinalIgnoreCase)
-            || fieldName.StartsWith("spell.", StringComparison.OrdinalIgnoreCase)
-                ? ConditionFieldCategory.Spell
-                : ConditionFieldCategory.State;
+        if (fieldName.StartsWith("auras.", StringComparison.OrdinalIgnoreCase)
+            || fieldName.StartsWith("aura.", StringComparison.OrdinalIgnoreCase))
+        {
+            return ConditionFieldCategory.Aura;
+        }
+
+        if (fieldName.StartsWith("spells.", StringComparison.OrdinalIgnoreCase)
+            || fieldName.StartsWith("spell.", StringComparison.OrdinalIgnoreCase))
+        {
+            return ConditionFieldCategory.Spell;
+        }
+
+        return ConditionFieldCategory.State;
     }
 
     private static void SelectCategory(ConditionRow row, ConditionFieldCategory category)

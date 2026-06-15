@@ -104,7 +104,6 @@ C:\Users\bianw\OneDrive\VS Code\Shigure\artifacts\verify-about\Shigure.runtimeco
 C:\Users\bianw\OneDrive\VS Code\Shigure\artifacts\verify-about\Shigure.dll
 C:\Users\bianw\OneDrive\VS Code\Shigure\artifacts\verify-about\Shigure.pdb
 C:\Users\bianw\OneDrive\VS Code\Shigure\bin\Debug\net10.0-windows\module\戒律队伍神谕者-by-Wayne.json
-C:\Users\bianw\OneDrive\VS Code\Shigure\bin\Debug\net10.0-windows\module\戒律团队神谕者-by-Wayne.json
 C:\Users\bianw\OneDrive\VS Code\Shigure\bin\CodexBuild\Assets\shigure-emblem-arasaka.ico
 C:\Users\bianw\OneDrive\VS Code\Shigure\bin\CodexBuild\Assets\shigure-emblem-arasaka.png
 C:\Users\bianw\OneDrive\VS Code\Shigure\bin\CodexBuild\Assets\shigure-logo.svg
@@ -132,7 +131,6 @@ C:\Users\bianw\OneDrive\VS Code\Shigure\bin\CodexBuild\Shigure.deps.json
 C:\Users\bianw\OneDrive\VS Code\Shigure\bin\CodexBuild\Shigure.runtimeconfig.json
 C:\Users\bianw\OneDrive\VS Code\Shigure\bin\CodexBuild\Shigure.dll
 C:\Users\bianw\OneDrive\VS Code\Shigure\bin\CodexBuild\Shigure.pdb
-C:\Users\bianw\OneDrive\VS Code\Shigure\bin\Debug\net10.0-windows\module\戒律-单人神谕者-测试.json
 C:\Users\bianw\OneDrive\VS Code\Shigure\bin\Debug\net10.0-windows\module\DK-官方一键.json
 C:\Users\bianw\OneDrive\VS Code\Shigure\bin\Debug\net10.0-windows\Shigure.exe
 C:\Users\bianw\OneDrive\VS Code\Shigure\bin\Debug\net10.0-windows\Shigure.deps.json
@@ -159,3 +157,4 @@ C:\Users\bianw\OneDrive\VS Code\Shigure\bin\Debug\net10.0-windows\config\猎人.
 C:\Users\bianw\OneDrive\VS Code\Shigure\bin\Debug\net10.0-windows\config\盗贼.json
 C:\Users\bianw\OneDrive\VS Code\Shigure\bin\Debug\net10.0-windows\config\萨满.json
 C:\Users\bianw\OneDrive\VS Code\Shigure\bin\Debug\net10.0-windows\module\DH-复仇-官方一键.json
+C:\Users\bianw\OneDrive\VS Code\Shigure\bin\Debug\net10.0-windows\module\邪DK-By-Wayne.json

@@ -172,21 +172,6 @@
         }
     },
     "3": {
-        "食尸鬼层数": {
-            "step": "bar",
-            "bar": 1,
-            "type": "int"
-        },
-        "腐化层数": {
-            "step": "bar",
-            "bar": 2,
-            "type": "int"
-        },
-        "凋零层数": {
-            "step": "bar",
-            "bar": 3,
-            "type": "int"
-        },
         "符文": {
             "step": 21,
             "type": "int"
@@ -235,57 +220,74 @@
             "step": 31,
             "type": "int"
         },
-        "次级食尸鬼": {
-            "step": 41,
-            "type": "int"
-        },
-        "割魂索命": {
-            "step": 42,
-            "type": "int"
-        },
-        "末日突降": {
-            "step": 43,
-            "type": "int"
-        },
-        "末日层数": {
-            "step": 44,
-            "type": "int"
-        },
-        "黑暗援助": {
-            "step": 45,
-            "type": "int"
-        },
-        "禁断知识": {
-            "step": 46,
-            "type": "int"
-        },
-        "脓疮毒镰": {
-            "step": 47,
-            "type": "int"
-        },
-        "脓疮毒镰2": {
-            "step": 48,
-            "type": "int"
-        },
-        "枯萎凋零": {
-            "step": 49,
-            "type": "int"
-        },
-        "亡者指挥官": {
-            "step": 50,
-            "type": "int"
-        },
-        "寒冰锁链": {
-            "step": 51,
-            "type": "int"
-        },
-        "暗影之爪层数": {
-            "step": 52,
-            "type": "int"
-        },
-        "凋萎": {
-            "step": 53,
-            "type": "int"
+        "auras": {
+            "食尸鬼层数": {
+                "step": "bar",
+                "bar": 1,
+                "type": "int"
+            },
+            "腐化层数": {
+                "step": "bar",
+                "bar": 2,
+                "type": "int"
+            },
+            "凋零层数": {
+                "step": "bar",
+                "bar": 3,
+                "type": "int"
+            },
+            "次级食尸鬼": {
+                "step": 41,
+                "type": "int"
+            },
+            "割魂索命": {
+                "step": 42,
+                "type": "int"
+            },
+            "末日突降": {
+                "step": 43,
+                "type": "int"
+            },
+            "末日层数": {
+                "step": 44,
+                "type": "int"
+            },
+            "黑暗援助": {
+                "step": 45,
+                "type": "int"
+            },
+            "禁断知识": {
+                "step": 46,
+                "type": "int"
+            },
+            "脓疮毒镰": {
+                "step": 47,
+                "type": "int"
+            },
+            "脓疮毒镰2": {
+                "step": 48,
+                "type": "int"
+            },
+            "枯萎凋零": {
+                "step": 49,
+                "type": "int"
+            },
+            "亡者指挥官": {
+                "step": 50,
+                "type": "int"
+            },
+            "寒冰锁链": {
+                "step": 51,
+                "type": "int"
+            },
+            "暗影之爪层数": {
+                "step": 52,
+                "type": "int"
+            },
+            "凋萎": {
+                "step": 53,
+                "type": "int"
+            }
         },
         "spells": {
             "死亡之握": {

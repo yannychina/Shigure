@@ -80,7 +80,7 @@ public sealed class ModuleEditorControl : UserControl
             RowCount = 1,
             Margin = new Padding(0)
         };
-        root.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 230));
+        root.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 300));
         root.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100));
         Controls.Add(root);
 
@@ -193,9 +193,9 @@ public sealed class ModuleEditorControl : UserControl
 
         var pages = new[]
         {
+            BuildRulesPanel(showTitle: false),
             BuildUnitsPanel(showTitle: false),
             BuildAdjustmentsPanel(showTitle: false),
-            BuildRulesPanel(showTitle: false)
         };
         foreach (var page in pages)
         {
@@ -229,7 +229,7 @@ public sealed class ModuleEditorControl : UserControl
             }
         }
 
-        var titles = new[] { "动态单位", "动态数值", "逻辑编辑" };
+        var titles = new[] { "逻辑编辑", "动态单位", "动态数值" };
         for (var i = 0; i < titles.Length; i++)
         {
             var index = i;
