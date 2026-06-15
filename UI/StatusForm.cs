@@ -316,7 +316,10 @@ public sealed class StatusForm : Form
         };
         panel.Controls.Add(title, 0, 0);
 
-        var version = Assembly.GetExecutingAssembly().GetName().Version?.ToString() ?? "未知";
+        var assembly = Assembly.GetExecutingAssembly();
+        var version = assembly.GetName().Version?.ToString() ?? "未知";
+        var company = assembly.GetCustomAttribute<AssemblyCompanyAttribute>()?.Company;
+        company = string.IsNullOrWhiteSpace(company) ? "Arasaka Corporation" : company;
         var details = new TableLayoutPanel
         {
             AutoSize = true,
@@ -326,19 +329,40 @@ public sealed class StatusForm : Form
             RowCount = 0,
             Padding = new Padding(0)
         };
-        details.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 92));
+        details.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 120));
         details.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100));
 
         AddAboutRow(details, "产品", "Shigure");
+        AddAboutRow(details, "公司", company);
         AddAboutRow(details, "版本", version);
-        AddAboutRow(details, "类型", ".NET WinForms 桌面程序");
-        AddAboutRow(details, "用途", "扫描游戏窗口状态，根据模块规则和按键映射执行辅助逻辑。");
-        AddAboutRow(details, "运行目录", AppPaths.BaseDirectory);
-        AddAboutRow(details, "模块目录", ModuleStore.ResolveModuleDirectory(AppPaths.BaseDirectory));
-        AddAboutRow(details, "配置目录", ConfigService.ResolveConfigPath(AppPaths.BaseDirectory));
+        AddAboutRow(details, "类型", "冲锋枪"); 
+        AddAboutRow(details, "介绍", "它一分钟打出去的子弹比荒坂偷的税还要多。"); 
+        AddAboutRow(details, "用途", "有时人们只想把子弹全打出去，在硝烟过后品味眼前的一片狼藉。");
+        AddAboutRow(details, "模块目录", FormatAboutPath(ModuleStore.ResolveModuleDirectory(AppPaths.BaseDirectory)));
+        AddAboutRow(details, "配置目录", FormatAboutPath(ConfigService.ResolveConfigPath(AppPaths.BaseDirectory)));
 
         panel.Controls.Add(details, 0, 1);
         return panel;
+    }
+
+    private static string FormatAboutPath(string path)
+    {
+        if (string.IsNullOrWhiteSpace(path))
+        {
+            return "-";
+        }
+
+        try
+        {
+            var baseDirectory = Path.GetFullPath(AppPaths.BaseDirectory);
+            var fullPath = Path.GetFullPath(path);
+            var relativePath = Path.GetRelativePath(baseDirectory, fullPath);
+            return string.IsNullOrWhiteSpace(relativePath) ? "." : relativePath;
+        }
+        catch
+        {
+            return path;
+        }
     }
 
     private static void AddAboutRow(TableLayoutPanel panel, string name, string value)
@@ -348,8 +372,12 @@ public sealed class StatusForm : Form
         panel.Controls.Add(new Label
         {
             Text = name,
-            AutoSize = true,
+            AutoSize = false,
+            Width = 104,
+            Height = 22,
             ForeColor = UiTheme.Muted,
+            AutoEllipsis = true,
+            TextAlign = ContentAlignment.MiddleLeft,
             Margin = new Padding(0, 0, 16, 10)
         }, 0, row);
         panel.Controls.Add(new Label
