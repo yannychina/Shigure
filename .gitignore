@@ -1,8 +1,21 @@
-cache/
+# Build output
 bin/
 obj/
 artifacts/
+
+# Local application/cache data
+cache/
+
+# Visual Studio / VS Code user state
 .vs/
 .vscode/
 *.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Local assistant/tooling state
+.claude/
+
+# Local notes
 提示词帮助.md
