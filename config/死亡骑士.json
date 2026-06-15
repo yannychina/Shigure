@@ -226,16 +226,6 @@
                 "bar": 1,
                 "type": "int"
             },
-            "腐化层数": {
-                "step": "bar",
-                "bar": 2,
-                "type": "int"
-            },
-            "凋零层数": {
-                "step": "bar",
-                "bar": 3,
-                "type": "int"
-            },
             "次级食尸鬼": {
                 "step": 41,
                 "type": "int"
@@ -290,6 +280,16 @@
             }
         },
         "spells": {
+            "腐化层数": {
+                "step": "bar",
+                "bar": 2,
+                "type": "int"
+            },
+            "凋零层数": {
+                "step": "bar",
+                "bar": 3,
+                "type": "int"
+            },
             "死亡之握": {
                 "step": 61,
                 "type": "int"

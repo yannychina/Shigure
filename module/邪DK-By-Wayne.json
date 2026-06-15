@@ -107,7 +107,7 @@
     },
     {
       "Enabled": true,
-      "Condition": "spells.灵魂收割 == 0 && auras.腐化层数 == 0 && 首领战 > 0 && 目标生命值 <= 35",
+      "Condition": "spells.灵魂收割 == 0 && spells.腐化层数 == 0 && 首领战 > 0 && 目标生命值 <= 35",
       "Unit": 0,
       "Spell": "灵魂收割",
       "Hotkey": "",
@@ -115,7 +115,7 @@
     },
     {
       "Enabled": true,
-      "Condition": "spells.灵魂收割 == 0 && auras.腐化层数 == 0 && 首领战 > 0 && auras.割魂索命 > 0",
+      "Condition": "spells.灵魂收割 == 0 && spells.腐化层数 == 0 && 首领战 > 0 && auras.割魂索命 > 0",
       "Unit": 0,
       "Spell": "灵魂收割",
       "Hotkey": "",
@@ -123,7 +123,7 @@
     },
     {
       "Enabled": true,
-      "Condition": "spells.灵魂收割 >= 0 && spells.灵魂收割 <= 1 && auras.腐化层数 >= 2 && auras.亡者指挥官 > 1 && 目标生命值 <= 35",
+      "Condition": "spells.灵魂收割 >= 0 && spells.灵魂收割 <= 1 && spells.腐化层数 >= 2 && auras.亡者指挥官 > 1 && 目标生命值 <= 35",
       "Unit": 0,
       "Spell": "灵魂收割",
       "Hotkey": "",
@@ -131,7 +131,7 @@
     },
     {
       "Enabled": true,
-      "Condition": "spells.灵魂收割 >= 0 && spells.灵魂收割 <= 1 && auras.腐化层数 >= 2 && auras.亡者指挥官 > 1 && auras.割魂索命 > 0",
+      "Condition": "spells.灵魂收割 >= 0 && spells.灵魂收割 <= 1 && spells.腐化层数 >= 2 && auras.亡者指挥官 > 1 && auras.割魂索命 > 0",
       "Unit": 0,
       "Spell": "灵魂收割",
       "Hotkey": "",
@@ -139,7 +139,7 @@
     },
     {
       "Enabled": true,
-      "Condition": "爆发开关 == 0 && auras.腐化层数 >= 2 && 首领战 > 0 && spells.灵魂收割 >= 0 && spells.灵魂收割 <= 1 && 目标生命值 < 35",
+      "Condition": "爆发开关 == 0 && spells.腐化层数 >= 2 && 首领战 > 0 && spells.灵魂收割 >= 0 && spells.灵魂收割 <= 1 && 目标生命值 < 35",
       "Unit": 0,
       "Spell": "灵魂收割",
       "Hotkey": "",
@@ -147,7 +147,7 @@
     },
     {
       "Enabled": true,
-      "Condition": "爆发开关 == 0 && auras.腐化层数 >= 2 && 首领战 > 0 && spells.灵魂收割 >= 0 && spells.灵魂收割 <= 1 && auras.割魂索命 > 0",
+      "Condition": "爆发开关 == 0 && spells.腐化层数 >= 2 && 首领战 > 0 && spells.灵魂收割 >= 0 && spells.灵魂收割 <= 1 && auras.割魂索命 > 0",
       "Unit": 0,
       "Spell": "灵魂收割",
       "Hotkey": "",
@@ -155,7 +155,7 @@
     },
     {
       "Enabled": true,
-      "Condition": "爆发开关 == 0 && auras.腐化层数 == 2 && 首领战 == 0 && spells.灵魂收割 >= 0 && spells.灵魂收割 <= 1 && spells.黑暗突变 > 20 && 目标生命值 > 15 && 目标生命值 < 35",
+      "Condition": "爆发开关 == 0 && spells.腐化层数 == 2 && 首领战 == 0 && spells.灵魂收割 >= 0 && spells.灵魂收割 <= 1 && spells.黑暗突变 > 20 && 目标生命值 > 15 && 目标生命值 < 35",
       "Unit": 0,
       "Spell": "灵魂收割",
       "Hotkey": "",
@@ -163,7 +163,7 @@
     },
     {
       "Enabled": true,
-      "Condition": "爆发开关 == 0 && auras.腐化层数 == 3 && 首领战 == 0 && spells.灵魂收割 >= 0 && spells.灵魂收割 <= 1 && spells.亡者大军 > 60 && 目标生命值 > 5 && 目标生命值 < 35",
+      "Condition": "爆发开关 == 0 && spells.腐化层数 == 3 && 首领战 == 0 && spells.灵魂收割 >= 0 && spells.灵魂收割 <= 1 && spells.亡者大军 > 60 && 目标生命值 > 5 && 目标生命值 < 35",
       "Unit": 0,
       "Spell": "灵魂收割",
       "Hotkey": "",
@@ -171,7 +171,7 @@
     },
     {
       "Enabled": true,
-      "Condition": "爆发开关 == 0 && auras.腐化层数 == 2 && 首领战 == 0 && spells.灵魂收割 >= 0 && spells.灵魂收割 <= 1 && spells.黑暗突变 > 20 && auras.割魂索命 > 0",
+      "Condition": "爆发开关 == 0 && spells.腐化层数 == 2 && 首领战 == 0 && spells.灵魂收割 >= 0 && spells.灵魂收割 <= 1 && spells.黑暗突变 > 20 && auras.割魂索命 > 0",
       "Unit": 0,
       "Spell": "灵魂收割",
       "Hotkey": "",
@@ -179,7 +179,7 @@
     },
     {
       "Enabled": true,
-      "Condition": "爆发开关 == 0 && auras.腐化层数 == 3 && 首领战 == 0 && spells.灵魂收割 >= 0 && spells.灵魂收割 <= 1 && spells.亡者大军 > 60 && auras.割魂索命 > 0",
+      "Condition": "爆发开关 == 0 && spells.腐化层数 == 3 && 首领战 == 0 && spells.灵魂收割 >= 0 && spells.灵魂收割 <= 1 && spells.亡者大军 > 60 && auras.割魂索命 > 0",
       "Unit": 0,
       "Spell": "灵魂收割",
       "Hotkey": "",
@@ -195,7 +195,7 @@
     },
     {
       "Enabled": true,
-      "Condition": "爆发开关 == 0 && auras.腐化层数 == 2 && 首领战 > 0 && spells.灵魂收割 == 0 && spells.亡者大军 > 30",
+      "Condition": "爆发开关 == 0 && spells.腐化层数 == 2 && 首领战 > 0 && spells.灵魂收割 == 0 && spells.亡者大军 > 30",
       "Unit": 0,
       "Spell": "腐化",
       "Hotkey": "",
@@ -203,7 +203,7 @@
     },
     {
       "Enabled": true,
-      "Condition": "爆发开关 == 0 && auras.腐化层数 == 2 && 首领战 == 0 && spells.灵魂收割 == 0 && spells.黑暗突变 > 20 && 目标生命值 > 50",
+      "Condition": "爆发开关 == 0 && spells.腐化层数 == 2 && 首领战 == 0 && spells.灵魂收割 == 0 && spells.黑暗突变 > 20 && 目标生命值 > 50",
       "Unit": 0,
       "Spell": "腐化",
       "Hotkey": "",
@@ -211,7 +211,7 @@
     },
     {
       "Enabled": true,
-      "Condition": "爆发开关 == 0 && auras.腐化层数 == 3 && 首领战 > 0 && spells.灵魂收割 == 0 && spells.亡者大军 > 15",
+      "Condition": "爆发开关 == 0 && spells.腐化层数 == 3 && 首领战 > 0 && spells.灵魂收割 == 0 && spells.亡者大军 > 15",
       "Unit": 0,
       "Spell": "腐化",
       "Hotkey": "",
@@ -219,7 +219,7 @@
     },
     {
       "Enabled": true,
-      "Condition": "爆发开关 == 0 && auras.腐化层数 == 3 && 首领战 == 0 && spells.灵魂收割 == 0 && spells.亡者大军 > 60 && 目标生命值 > 50",
+      "Condition": "爆发开关 == 0 && spells.腐化层数 == 3 && 首领战 == 0 && spells.灵魂收割 == 0 && spells.亡者大军 > 60 && 目标生命值 > 50",
       "Unit": 0,
       "Spell": "腐化",
       "Hotkey": "",
@@ -259,7 +259,7 @@
     },
     {
       "Enabled": true,
-      "Condition": "移动 == false && auras.凋零层数 > 0 && 能量值 < 90 && auras.亡者指挥官 > 0 && 敌人人数 >= 3",
+      "Condition": "移动 == false && spells.凋零层数 > 0 && 能量值 < 90 && auras.亡者指挥官 > 0 && 敌人人数 >= 3",
       "Unit": 0,
       "Spell": "枯萎凋零",
       "Hotkey": "",
@@ -267,7 +267,7 @@
     },
     {
       "Enabled": true,
-      "Condition": "移动 == false && auras.凋零层数 > 0 && 能量值 < 90 && auras.亡者指挥官 > 0 && 首领战 == 70",
+      "Condition": "移动 == false && spells.凋零层数 > 0 && 能量值 < 90 && auras.亡者指挥官 > 0 && 首领战 == 70",
       "Unit": 0,
       "Spell": "枯萎凋零",
       "Hotkey": "",
