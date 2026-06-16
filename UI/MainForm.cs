@@ -5,6 +5,7 @@ namespace Shigure;
 public sealed class MainForm : Form, IMessageFilter
 {
     private const int ResizeGripSize = 8;
+    private const int RoundedCornerResizeDebounceMs = 80;
     private const string HeaderIconResourcePath = "Assets.arasaka-icon-transparent.png";
     private static readonly Color DefaultHeaderIconColor = Color.White;
     private static readonly IReadOnlyDictionary<int, Color> ClassIconColors = new Dictionary<int, Color>
@@ -35,6 +36,7 @@ public sealed class MainForm : Form, IMessageFilter
     private bool _isCapturingToggleKey;
     private bool _suppressModuleSelectionChanged;
     private string? _lastModuleSelectorSignature;
+    private bool _usesDwmRoundedCorners = true;
 
     private Button _enableButton = null!;
 
@@ -48,6 +50,7 @@ public sealed class MainForm : Form, IMessageFilter
     private readonly ModuleStore _moduleStore;
     private readonly AppOptions _initialOptions;
     private readonly UiCacheState _uiCache;
+    private readonly System.Windows.Forms.Timer _roundedCornerResizeTimer;
     private ShigureRuntime? _runtime;
     private CancellationTokenSource? _runtimeCts;
     private Task? _runtimeTask;
@@ -64,6 +67,18 @@ public sealed class MainForm : Form, IMessageFilter
         _uiCache = UiCacheStore.Load();
         _moduleStore = new ModuleStore(ModuleStore.ResolveModuleDirectory(AppPaths.BaseDirectory));
         _statusForm = new StatusForm();
+        _roundedCornerResizeTimer = new System.Windows.Forms.Timer
+        {
+            Interval = RoundedCornerResizeDebounceMs
+        };
+        _roundedCornerResizeTimer.Tick += (_, _) =>
+        {
+            _roundedCornerResizeTimer.Stop();
+            if (IsHandleCreated && !_usesDwmRoundedCorners)
+            {
+                UiTheme.ApplyFallbackRoundedCorners(this);
+            }
+        };
         Application.AddMessageFilter(this);
         InitializeComponent();
         _statusForm.AttachSettingsPanel(BuildSettingsPanel());
@@ -86,7 +101,7 @@ public sealed class MainForm : Form, IMessageFilter
         base.OnHandleCreated(e);
         UiTheme.ApplyDarkTitleBar(this);
         UiTheme.ApplyTranslucentBackground(this);
-        UiTheme.ApplyRoundedCorners(this);
+        _usesDwmRoundedCorners = UiTheme.ApplyRoundedCorners(this);
     }
 
     protected override void OnShown(EventArgs e)
@@ -98,18 +113,41 @@ public sealed class MainForm : Form, IMessageFilter
     protected override void OnFormClosing(FormClosingEventArgs e)
     {
         SaveUiCache();
+        _roundedCornerResizeTimer.Stop();
         Application.RemoveMessageFilter(this);
         _runtimeCts?.Cancel();
         base.OnFormClosing(e);
     }
 
+    protected override void OnFormClosed(FormClosedEventArgs e)
+    {
+        _roundedCornerResizeTimer.Dispose();
+        base.OnFormClosed(e);
+    }
+
     protected override void OnResize(EventArgs e)
     {
         base.OnResize(e);
-        if (IsHandleCreated)
+        if (IsHandleCreated && !_usesDwmRoundedCorners)
         {
-            UiTheme.ApplyRoundedCorners(this);
+            ScheduleFallbackRoundedCornerUpdate();
         }
+    }
+
+    protected override void OnResizeEnd(EventArgs e)
+    {
+        base.OnResizeEnd(e);
+        if (IsHandleCreated && !_usesDwmRoundedCorners)
+        {
+            _roundedCornerResizeTimer.Stop();
+            UiTheme.ApplyFallbackRoundedCorners(this);
+        }
+    }
+
+    private void ScheduleFallbackRoundedCornerUpdate()
+    {
+        _roundedCornerResizeTimer.Stop();
+        _roundedCornerResizeTimer.Start();
     }
 
     protected override void WndProc(ref Message m)

@@ -39,6 +39,9 @@ internal static class UiTheme
     [DllImport("gdi32.dll")]
     private static extern nint CreateRoundRectRgn(int left, int top, int right, int bottom, int widthEllipse, int heightEllipse);
 
+    [DllImport("gdi32.dll")]
+    private static extern bool DeleteObject(nint hObject);
+
     [DllImport("user32.dll")]
     private static extern int SetWindowCompositionAttribute(nint hwnd, ref WindowCompositionAttributeData data);
 
@@ -74,13 +77,40 @@ internal static class UiTheme
         _ = DwmSetWindowAttribute(form.Handle, DwmwaUseImmersiveDarkMode, ref dark, sizeof(int));
     }
 
-    public static void ApplyRoundedCorners(Form form)
+    public static bool ApplyRoundedCorners(Form form)
     {
         var preference = DwmwcpRound;
-        if (DwmSetWindowAttribute(form.Handle, DwmwaWindowCornerPreference, ref preference, sizeof(int)) != 0)
+        if (DwmSetWindowAttribute(form.Handle, DwmwaWindowCornerPreference, ref preference, sizeof(int)) == 0)
         {
-            // Windows 10 回退: 用 Region 裁剪圆角。
-            form.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, form.Width + 1, form.Height + 1, 16, 16));
+            return true;
+        }
+
+        ApplyFallbackRoundedCorners(form);
+        return false;
+    }
+
+    public static void ApplyFallbackRoundedCorners(Form form)
+    {
+        if (form.Width <= 0 || form.Height <= 0)
+        {
+            return;
+        }
+
+        var regionHandle = CreateRoundRectRgn(0, 0, form.Width + 1, form.Height + 1, 16, 16);
+        if (regionHandle == 0)
+        {
+            return;
+        }
+
+        try
+        {
+            var previousRegion = form.Region;
+            form.Region = Region.FromHrgn(regionHandle);
+            previousRegion?.Dispose();
+        }
+        finally
+        {
+            _ = DeleteObject(regionHandle);
         }
     }
 
