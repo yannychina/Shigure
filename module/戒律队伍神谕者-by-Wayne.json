@@ -97,14 +97,7 @@
     {
       "Enabled": true,
       "Condition": "施法技能 == 34",
-      "Field": "auras.暗影层数",
-      "Delta": -1,
-      "Formula": ""
-    },
-    {
-      "Enabled": true,
-      "Condition": "施法技能 == 34",
-      "Field": "涌动层数",
+      "Field": "auras.愈合层数",
       "Delta": -1,
       "Formula": ""
     },
@@ -127,6 +120,13 @@
       "Condition": "施法技能 == 30",
       "Field": "有救赎数量",
       "Delta": 4,
+      "Formula": ""
+    },
+    {
+      "Enabled": true,
+      "Condition": "施法技能 == 29",
+      "Field": "auras.愈合层数",
+      "Delta": 10,
       "Formula": ""
     }
   ],

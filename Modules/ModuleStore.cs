@@ -826,6 +826,18 @@ public static class ModuleLogic
             return;
         }
 
+        if (key.StartsWith("auras.", StringComparison.OrdinalIgnoreCase))
+        {
+            GetOrCreateMutableDict(state, "auras")[key["auras.".Length..]] = value;
+            return;
+        }
+
+        if (key.StartsWith("spells.", StringComparison.OrdinalIgnoreCase))
+        {
+            GetOrCreateMutableDict(state, "spells")[key["spells.".Length..]] = value;
+            return;
+        }
+
         GetOrCreateDynamicValues(state)[key] = value;
     }
 
@@ -851,11 +863,51 @@ public static class ModuleLogic
         return values;
     }
 
+    private static Dictionary<string, object?> GetOrCreateMutableDict(GameState state, string dictKey)
+    {
+        if (state.Values.TryGetValue(dictKey, out var obj))
+        {
+            if (obj is Dictionary<string, object?> mutable)
+            {
+                return mutable;
+            }
+
+            if (obj is IReadOnlyDictionary<string, object?> readOnly)
+            {
+                var copy = new Dictionary<string, object?>(readOnly, StringComparer.Ordinal);
+                state.Values[dictKey] = copy;
+                return copy;
+            }
+        }
+
+        var dict = new Dictionary<string, object?>(StringComparer.Ordinal);
+        state.Values[dictKey] = dict;
+        return dict;
+    }
+
     private static void ApplyValueDelta(GameState state, string field, int delta)
     {
         var key = field.Trim();
         if (key.Length == 0)
         {
+            return;
+        }
+
+        if (key.StartsWith("auras.", StringComparison.OrdinalIgnoreCase))
+        {
+            var auraKey = key["auras.".Length..];
+            var dict = GetOrCreateMutableDict(state, "auras");
+            var current = dict.TryGetValue(auraKey, out var v) ? v : null;
+            dict[auraKey] = AddDelta(current, delta);
+            return;
+        }
+
+        if (key.StartsWith("spells.", StringComparison.OrdinalIgnoreCase))
+        {
+            var spellKey = key["spells.".Length..];
+            var dict = GetOrCreateMutableDict(state, "spells");
+            var current = dict.TryGetValue(spellKey, out var v) ? v : null;
+            dict[spellKey] = AddDelta(current, delta);
             return;
         }
 
