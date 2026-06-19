@@ -214,6 +214,17 @@
             "step": 30,
             "type": "int"
         },
+        "auras": {
+            "溢流漩涡层数": {
+                "step": "bar",
+                "bar": 1,
+                "type": "int"
+            },
+            "漩涡武器层数": {
+                "step": 42,
+                "type": "int"
+            }
+        },
         "spells": {
             "风剪": {
                 "step": 31,
