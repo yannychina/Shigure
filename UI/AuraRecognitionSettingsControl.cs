@@ -5,7 +5,7 @@ namespace Shigure;
 
 public sealed class AuraRecognitionSettingsControl : UserControl
 {
-    private const int RealtimeScanIntervalMs = 500;
+    private const int RealtimeScanIntervalMs = 250;
     private const int SlotIconColumnIndex = 1;
     private const int SlotNameColumnIndex = 2;
     private const int SavedIconColumnIndex = 0;
