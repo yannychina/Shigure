@@ -29,6 +29,54 @@
         "26": "十字军打击"
     },
     "1": {
+        "战斗时间": {
+            "step": 9,
+            "type": "int"
+        },
+        "移动": {
+            "step": 10,
+            "type": "bool"
+        },
+        "施法": {
+            "step": 11,
+            "type": "int"
+        },
+        "引导": {
+            "step": 12,
+            "type": "int"
+        },
+        "蓄力": {
+            "step": 13,
+            "type": "int"
+        },
+        "蓄力层数": {
+            "step": 14,
+            "type": "int"
+        },
+        "生命值": {
+            "step": 15,
+            "type": "int"
+        },
+        "法力值": {
+            "step": 16,
+            "type": "int"
+        },
+        "目标类型": {
+            "step": 17,
+            "type": "int"
+        },
+        "队伍人数": {
+            "step": 18,
+            "type": "int"
+        },
+        "首领战": {
+            "step": 19,
+            "type": "int"
+        },
+        "难度": {
+            "step": 20,
+            "type": "int"
+        },
         "神圣能量": {
             "step": 21,
             "type": "int"
@@ -179,6 +227,54 @@
         }
     },
     "2": {
+        "战斗时间": {
+            "step": 9,
+            "type": "int"
+        },
+        "移动": {
+            "step": 10,
+            "type": "bool"
+        },
+        "施法": {
+            "step": 11,
+            "type": "int"
+        },
+        "引导": {
+            "step": 12,
+            "type": "int"
+        },
+        "蓄力": {
+            "step": 13,
+            "type": "int"
+        },
+        "蓄力层数": {
+            "step": 14,
+            "type": "int"
+        },
+        "生命值": {
+            "step": 15,
+            "type": "int"
+        },
+        "法力值": {
+            "step": 16,
+            "type": "int"
+        },
+        "目标类型": {
+            "step": 17,
+            "type": "int"
+        },
+        "队伍人数": {
+            "step": 18,
+            "type": "int"
+        },
+        "首领战": {
+            "step": 19,
+            "type": "int"
+        },
+        "难度": {
+            "step": 20,
+            "type": "int"
+        },
         "神圣能量": {
             "step": 21,
             "type": "int"
@@ -337,6 +433,54 @@
         }
     },
     "3": {
+        "战斗时间": {
+            "step": 9,
+            "type": "int"
+        },
+        "移动": {
+            "step": 10,
+            "type": "bool"
+        },
+        "施法": {
+            "step": 11,
+            "type": "int"
+        },
+        "引导": {
+            "step": 12,
+            "type": "int"
+        },
+        "蓄力": {
+            "step": 13,
+            "type": "int"
+        },
+        "蓄力层数": {
+            "step": 14,
+            "type": "int"
+        },
+        "生命值": {
+            "step": 15,
+            "type": "int"
+        },
+        "法力值": {
+            "step": 16,
+            "type": "int"
+        },
+        "目标类型": {
+            "step": 17,
+            "type": "int"
+        },
+        "队伍人数": {
+            "step": 18,
+            "type": "int"
+        },
+        "首领战": {
+            "step": 19,
+            "type": "int"
+        },
+        "难度": {
+            "step": 20,
+            "type": "int"
+        },
         "神圣能量": {
             "step": 21,
             "type": "int"

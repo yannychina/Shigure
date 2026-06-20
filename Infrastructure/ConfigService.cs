@@ -104,9 +104,9 @@ public sealed class ConfigService
     public JsonObject BuildStateConfig(int? classId, int? specId)
     {
         var merged = new JsonObject();
-        foreach (var key in new[] { "锚点", "职业", "专精" })
+        foreach (var (key, node) in Root)
         {
-            if (Root.TryGetPropertyValue(key, out var node) && node is JsonObject obj && obj.ContainsKey("step"))
+            if (node is JsonObject obj && obj.ContainsKey("step"))
             {
                 merged[key] = obj.DeepClone();
             }

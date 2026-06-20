@@ -515,7 +515,9 @@ public sealed class StatusForm : Form
 
             foreach (var (key, value) in snapshot.State.Values)
             {
-                if (key is "spells" or "auras" or "group" || key.StartsWith('$'))
+                if (key is "spells" or "auras" or "group"
+                    || string.Equals(key, RecognizedAuraFields.StateKey, StringComparison.Ordinal)
+                    || key.StartsWith('$'))
                 {
                     continue;
                 }

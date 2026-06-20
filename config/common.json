@@ -11,74 +11,24 @@
         "step": 3,
         "type": "int"
     },
-    "state": {
-        "有效性": {
-            "step": 4,
-            "type": "bool"
-        },
-        "战斗时间": {
-            "step": 5,
-            "type": "int"
-        },
-        "移动": {
-            "step": 6,
-            "type": "bool"
-        },
-        "施法": {
-            "step": 7,
-            "type": "int"
-        },
-        "引导": {
-            "step": 8,
-            "type": "int"
-        },
-        "蓄力": {
-            "step": 9,
-            "type": "int"
-        },
-        "蓄力层数": {
-            "step": 10,
-            "type": "int"
-        },
-        "生命值": {
-            "step": 11,
-            "type": "int"
-        },
-        "能量值": {
-            "step": 12,
-            "type": "int"
-        },
-        "一键辅助": {
-            "step": 13,
-            "type": "int"
-        },
-        "法术失败": {
-            "step": 14,
-            "type": "int"
-        },
-        "目标类型": {
-            "step": 15,
-            "type": "int"
-        },
-        "队伍类型": {
-            "step": 16,
-            "type": "int"
-        },
-        "队伍人数": {
-            "step": 17,
-            "type": "int"
-        },
-        "首领战": {
-            "step": 18,
-            "type": "int"
-        },
-        "难度": {
-            "step": 19,
-            "type": "int"
-        },
-        "英雄天赋": {
-            "step": 20,
-            "type": "int"
-        }
+    "队伍类型": {
+        "step": 4,
+        "type": "int"
+    },
+    "英雄天赋": {
+        "step": 5,
+        "type": "int"
+    },
+    "有效性": {
+        "step": 6,
+        "type": "bool"
+    },
+    "一键辅助": {
+        "step": 7,
+        "type": "int"
+    },
+    "法术失败": {
+        "step": 8,
+        "type": "int"
     }
 }
