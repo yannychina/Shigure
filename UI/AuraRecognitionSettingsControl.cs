@@ -48,6 +48,8 @@ public sealed class AuraRecognitionSettingsControl : UserControl
     private AuraIconRecognizer? _recognizer;
     private string? _recognizerSignature;
     private string? _currentSelectedHash;
+    private SelectedAuraIcon? _selectedAuraIcon;
+    private string? _editingHash;
     private (int ClassId, int SpecId) _activeScope = (0, 0);
     private bool _isScanning;
     private bool _auraImportEnabled;
@@ -156,10 +158,29 @@ public sealed class AuraRecognitionSettingsControl : UserControl
             SaveSelectedAuraName();
             e.SuppressKeyPress = true;
         };
+        _renameBox.Enter += (_, _) => BeginRenameEdit();
+        _renameBox.TextChanged += (_, _) =>
+        {
+            if (_renameBox.Focused)
+            {
+                BeginRenameEdit();
+            }
+        };
+        _renameBox.Leave += (_, _) =>
+        {
+            BeginInvoke((Action)(() =>
+            {
+                if (!_renameBox.Focused && !_saveNameButton.Focused)
+                {
+                    _editingHash = null;
+                }
+            }));
+        };
         _slotList.SelectedIndexChanged += (_, _) =>
         {
             if (!_suppressSlotSelectionChanged)
             {
+                _editingHash = null;
                 UpdateSelectedAura();
             }
         };
@@ -167,6 +188,7 @@ public sealed class AuraRecognitionSettingsControl : UserControl
         {
             if (!_suppressSavedIconSelectionChanged)
             {
+                _editingHash = null;
                 UpdateSelectedAura();
             }
         };
@@ -730,7 +752,8 @@ public sealed class AuraRecognitionSettingsControl : UserControl
         _templateLabel.Text = $"图标库: {result.TemplateCount} 个  目录: {result.TemplateDirectory}";
         UpdateToolbarInfoToolTips();
 
-        var selectedHash = GetSelectedHash() ?? _currentSelectedHash;
+        var selectedHash = _editingHash ?? GetSelectedHash() ?? _currentSelectedHash;
+        var preserveEditingSelection = !string.IsNullOrWhiteSpace(_editingHash);
         ListViewItem? itemToSelect = null;
         _suppressSlotSelectionChanged = true;
         _slotList.BeginUpdate();
@@ -770,7 +793,10 @@ public sealed class AuraRecognitionSettingsControl : UserControl
                 }
             }
 
-            itemToSelect ??= _slotList.Items.Count > 0 ? _slotList.Items[0] : null;
+            if (itemToSelect is null && !preserveEditingSelection)
+            {
+                itemToSelect = _slotList.Items.Count > 0 ? _slotList.Items[0] : null;
+            }
             if (itemToSelect is not null)
             {
                 itemToSelect.Selected = true;
@@ -787,13 +813,16 @@ public sealed class AuraRecognitionSettingsControl : UserControl
         {
             RefreshSavedIconList(selectedHash ?? _currentSelectedHash);
         }
-        if (_slotList.Items.Count == 0)
+        if (_slotList.Items.Count == 0 && !preserveEditingSelection)
         {
             ClearSelectedAura();
         }
 
         UpdateDetails(result);
-        UpdateSelectedAura();
+        if (itemToSelect is not null || !preserveEditingSelection)
+        {
+            UpdateSelectedAura();
+        }
         PublishRecognizedAuras(result);
     }
 
@@ -829,7 +858,12 @@ public sealed class AuraRecognitionSettingsControl : UserControl
 
         var preserveRenameText = _renameBox.Focused
             && string.Equals(_currentSelectedHash, selected.Hash, StringComparison.OrdinalIgnoreCase);
+        _selectedAuraIcon = selected;
         _currentSelectedHash = selected.Hash;
+        if (_renameBox.Focused)
+        {
+            _editingHash = selected.Hash;
+        }
         _selectedHashLabel.Text = selected.Description;
         _renameBox.Enabled = true;
         _saveNameButton.Enabled = true;
@@ -837,8 +871,13 @@ public sealed class AuraRecognitionSettingsControl : UserControl
         {
             _renameBox.Text = selected.EditName;
         }
-        SetPreviewImage(LoadPreviewImage(selected.IconPath));
+        SetPreviewImage(LoadPreviewImage(selected.IconPath, selected.IconPng));
         UpdateSelectedCandidates();
+    }
+
+    private void BeginRenameEdit()
+    {
+        _editingHash ??= _selectedAuraIcon?.Hash ?? GetSelectedAuraIcon()?.Hash ?? _currentSelectedHash;
     }
 
     private void UpdateSelectedCandidates()
@@ -896,6 +935,7 @@ public sealed class AuraRecognitionSettingsControl : UserControl
         return new SelectedAuraIcon(
             hash,
             slot.SavedIconPath,
+            slot.IconPng,
             description,
             GetManualAuraName(hash) ?? slot.Name ?? string.Empty,
             slot);
@@ -915,6 +955,7 @@ public sealed class AuraRecognitionSettingsControl : UserControl
         return new SelectedAuraIcon(
             savedIcon.Hash,
             savedIcon.Path,
+            null,
             description,
             GetManualAuraName(savedIcon.Hash) ?? string.Empty,
             null);
@@ -922,7 +963,13 @@ public sealed class AuraRecognitionSettingsControl : UserControl
 
     private void SaveSelectedAuraName()
     {
-        var selected = GetSelectedAuraIcon();
+        var selected = GetSelectedAuraIcon() ?? _selectedAuraIcon;
+        if (_editingHash is not null
+            && _selectedAuraIcon is not null
+            && string.Equals(_selectedAuraIcon.Hash, _editingHash, StringComparison.OrdinalIgnoreCase))
+        {
+            selected = _selectedAuraIcon;
+        }
         if (selected is null)
         {
             return;
@@ -934,7 +981,7 @@ public sealed class AuraRecognitionSettingsControl : UserControl
         {
             var savedIconPath = string.IsNullOrWhiteSpace(name)
                 ? null
-                : SaveNamedAuraIcon(selected.IconPath, hash);
+                : SaveNamedAuraIcon(selected.IconPath, selected.IconPng, hash);
 
             if (string.IsNullOrWhiteSpace(name))
             {
@@ -960,6 +1007,7 @@ public sealed class AuraRecognitionSettingsControl : UserControl
             {
                 UpdateDetails(_lastResult);
             }
+            _editingHash = null;
         }
         catch (Exception ex)
         {
@@ -967,9 +1015,10 @@ public sealed class AuraRecognitionSettingsControl : UserControl
         }
     }
 
-    private string SaveNamedAuraIcon(string? sourcePath, string hash)
+    private string SaveNamedAuraIcon(string? sourcePath, byte[]? iconPng, string hash)
     {
-        if (string.IsNullOrWhiteSpace(sourcePath) || !File.Exists(sourcePath))
+        if ((string.IsNullOrWhiteSpace(sourcePath) || !File.Exists(sourcePath))
+            && iconPng is not { Length: > 0 })
         {
             throw new InvalidOperationException("当前光环没有可用截图，无法保存图标。");
         }
@@ -977,7 +1026,15 @@ public sealed class AuraRecognitionSettingsControl : UserControl
         var directory = GetScopedAuraDirectory();
         Directory.CreateDirectory(directory);
         var iconPath = Path.Combine(directory, $"{hash}.png");
-        File.Copy(sourcePath, iconPath, overwrite: true);
+        if (!string.IsNullOrWhiteSpace(sourcePath) && File.Exists(sourcePath))
+        {
+            File.Copy(sourcePath, iconPath, overwrite: true);
+        }
+        else
+        {
+            File.WriteAllBytes(iconPath, iconPng!);
+        }
+
         return iconPath;
     }
 
@@ -1103,6 +1160,8 @@ public sealed class AuraRecognitionSettingsControl : UserControl
     private void ClearSelectedAura()
     {
         _currentSelectedHash = null;
+        _selectedAuraIcon = null;
+        _editingHash = null;
         _selectedHashLabel.Text = "未选择光环";
         _renameBox.Text = string.Empty;
         _renameBox.Enabled = false;
@@ -1112,13 +1171,19 @@ public sealed class AuraRecognitionSettingsControl : UserControl
 
     private string? AddSlotIcon(AuraSlotRecognition slot)
     {
-        var iconPath = GetBestTemplateIconPath(slot);
-        if (iconPath is null)
+        var iconPng = slot.IconPng;
+        var iconPath = slot.SavedIconPath;
+        var templatePath = GetBestTemplateIconPath(slot);
+        if ((iconPng is not { Length: > 0 })
+            && (string.IsNullOrWhiteSpace(iconPath) || !File.Exists(iconPath))
+            && templatePath is null)
         {
             return null;
         }
 
-        var key = $"{AuraIconRecognizer.FormatHash(slot.IconHash)}|{Path.GetFullPath(iconPath)}";
+        var key = iconPng is { Length: > 0 }
+            ? $"{AuraIconRecognizer.FormatHash(slot.IconHash)}|scan"
+            : $"{AuraIconRecognizer.FormatHash(slot.IconHash)}|{Path.GetFullPath(iconPath ?? templatePath!)}";
         if (_slotIconList.Images.ContainsKey(key))
         {
             return key;
@@ -1126,7 +1191,10 @@ public sealed class AuraRecognitionSettingsControl : UserControl
 
         try
         {
-            _slotIconList.Images.Add(key, CreateListIcon(iconPath));
+            var image = iconPng is { Length: > 0 }
+                ? CreateListIcon(iconPng)
+                : CreateListIcon(iconPath ?? templatePath!);
+            _slotIconList.Images.Add(key, image);
             return key;
         }
         catch
@@ -1296,6 +1364,17 @@ public sealed class AuraRecognitionSettingsControl : UserControl
     private static Bitmap CreateListIcon(string path)
     {
         using var source = LoadImageCopy(path);
+        return CreateListIcon(source);
+    }
+
+    private static Bitmap CreateListIcon(byte[] iconPng)
+    {
+        using var source = LoadImageCopy(iconPng);
+        return CreateListIcon(source);
+    }
+
+    private static Bitmap CreateListIcon(Image source)
+    {
         var icon = new Bitmap(32, 32);
         using var graphics = Graphics.FromImage(icon);
         graphics.Clear(Color.Transparent);
@@ -1305,8 +1384,20 @@ public sealed class AuraRecognitionSettingsControl : UserControl
         return icon;
     }
 
-    private static Image? LoadPreviewImage(string? path)
+    private static Image? LoadPreviewImage(string? path, byte[]? iconPng = null)
     {
+        if (iconPng is { Length: > 0 })
+        {
+            try
+            {
+                return LoadImageCopy(iconPng);
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
         if (string.IsNullOrWhiteSpace(path) || !File.Exists(path))
         {
             return null;
@@ -1325,6 +1416,13 @@ public sealed class AuraRecognitionSettingsControl : UserControl
     private static Bitmap LoadImageCopy(string path)
     {
         using var stream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite | FileShare.Delete);
+        using var source = Image.FromStream(stream);
+        return new Bitmap(source);
+    }
+
+    private static Bitmap LoadImageCopy(byte[] bytes)
+    {
+        using var stream = new MemoryStream(bytes);
         using var source = Image.FromStream(stream);
         return new Bitmap(source);
     }
@@ -1550,6 +1648,7 @@ public sealed class AuraRecognitionSettingsControl : UserControl
     private sealed record SelectedAuraIcon(
         string Hash,
         string? IconPath,
+        byte[]? IconPng,
         string Description,
         string EditName,
         AuraSlotRecognition? Slot);

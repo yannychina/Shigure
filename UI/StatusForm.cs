@@ -80,9 +80,9 @@ public sealed class StatusForm : Form
         _aboutHost = CreatePageHost();
 
         _stateList = UiTheme.CreateListView(Font, ("#", 48), ("名称", 150), ("值", 130));
-        _auraList = UiTheme.CreateListView(Font, ("#", 48), ("光环", 240), ("时间", 82), ("层数", 82));
-        _recognizedBuffAuraList = UiTheme.CreateListView(Font, ("#", 48), ("光环", 220), ("时间", 82), ("层数", 82));
-        _recognizedDebuffAuraList = UiTheme.CreateListView(Font, ("#", 48), ("光环", 220), ("时间", 82), ("层数", 82));
+        _auraList = UiTheme.CreateListView(Font, ("#", 48), ("光环", 180), ("时间", 82), ("层数", 82));
+        _recognizedBuffAuraList = UiTheme.CreateListView(Font, ("#", 48), ("光环", 180), ("时间", 82), ("层数", 82));
+        _recognizedDebuffAuraList = UiTheme.CreateListView(Font, ("#", 48), ("光环", 180), ("时间", 82), ("层数", 82));
         _dynamicUnitList = UiTheme.CreateListView(Font, ("类型", 120), ("名称", 120), ("值", 160));
         _spellList = UiTheme.CreateListView(Font, ("#", 48), ("技能", 150), ("状态", 110));
 

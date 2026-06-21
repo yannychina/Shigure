@@ -26,6 +26,7 @@ public sealed record AuraSlotRecognition(
     ulong IconHash,
     Rectangle SlotBounds,
     Rectangle IconBounds,
+    byte[]? IconPng,
     string? SavedIconPath,
     string? Name,
     int? HashDistance,
@@ -403,6 +404,7 @@ public sealed class AuraIconRecognizer : IDisposable
             using var icon = capture.Clone(detected.IconBounds, PixelFormat.Format32bppArgb);
             using var matchIcon = CreateMatchIcon(icon);
             var iconHash = ComputeDHash(matchIcon);
+            var iconPng = EncodePng(icon);
             var savedIconPath = saveIcons ? SaveAuraIcon(icon, iconHash, auraDirectory) : null;
             var candidates = RecognizeIcon(matchIcon, iconHash, templates);
             var best = candidates.FirstOrDefault();
@@ -415,6 +417,7 @@ public sealed class AuraIconRecognizer : IDisposable
                 iconHash,
                 detected.SlotBounds,
                 detected.IconBounds,
+                iconPng,
                 savedIconPath,
                 best?.Name,
                 best?.HashDistance,
@@ -423,6 +426,20 @@ public sealed class AuraIconRecognizer : IDisposable
         }
 
         return slots;
+    }
+
+    private static byte[]? EncodePng(Bitmap icon)
+    {
+        try
+        {
+            using var stream = new MemoryStream();
+            icon.Save(stream, ImageFormat.Png);
+            return stream.ToArray();
+        }
+        catch
+        {
+            return null;
+        }
     }
 
     private static string? SaveAuraIcon(
