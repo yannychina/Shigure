@@ -276,21 +276,6 @@ public sealed class ShigureRuntime
             }
         }
 
-        if (state.Values.TryGetValue(RecognizedAuraFields.StateKey, out var recognizedObj)
-            && recognizedObj is IReadOnlyDictionary<string, object?> recognizedAuras)
-        {
-            foreach (var (name, value) in recognizedAuras.OrderBy(kv => kv.Key, StringComparer.CurrentCultureIgnoreCase))
-            {
-                if (!RecognizedAuraFields.TryDescribeLookupKey(name, out var auraName, out var metric))
-                {
-                    continue;
-                }
-
-                var suffix = metric == RecognizedAuraMetric.Time ? "时间" : "层数";
-                values.Add(new DynamicValueSnapshot("识别光环", $"{auraName} {suffix}", FormatSnapshotValue(value)));
-            }
-        }
-
         return values;
     }
 

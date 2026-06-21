@@ -12,6 +12,8 @@ public sealed class StatusForm : Form
 
     private ListView _stateList = null!;
     private ListView _auraList = null!;
+    private ListView _recognizedBuffAuraList = null!;
+    private ListView _recognizedDebuffAuraList = null!;
     private ListView _dynamicUnitList = null!;
     private ListView _spellList = null!;
     private ListView _partyList = null!;
@@ -77,10 +79,12 @@ public sealed class StatusForm : Form
         _auraRecognitionHost = CreatePageHost();
         _aboutHost = CreatePageHost();
 
-        _stateList = UiTheme.CreateListView(Font, ("#", 56), ("名称", 150), ("值", 130));
-        _auraList = UiTheme.CreateListView(Font, ("#", 48), ("光环", 140), ("时间", 82), ("层数", 82));
-        _dynamicUnitList = UiTheme.CreateListView(Font, ("类型", 86), ("名称", 120), ("值", 160));
-        _spellList = UiTheme.CreateListView(Font, ("#", 56), ("技能", 150), ("状态", 110));
+        _stateList = UiTheme.CreateListView(Font, ("#", 48), ("名称", 150), ("值", 130));
+        _auraList = UiTheme.CreateListView(Font, ("#", 48), ("光环", 240), ("时间", 82), ("层数", 82));
+        _recognizedBuffAuraList = UiTheme.CreateListView(Font, ("#", 48), ("光环", 220), ("时间", 82), ("层数", 82));
+        _recognizedDebuffAuraList = UiTheme.CreateListView(Font, ("#", 48), ("光环", 220), ("时间", 82), ("层数", 82));
+        _dynamicUnitList = UiTheme.CreateListView(Font, ("类型", 120), ("名称", 120), ("值", 160));
+        _spellList = UiTheme.CreateListView(Font, ("#", 48), ("技能", 150), ("状态", 110));
 
         _partyList = UiTheme.CreateListView(Font, ("单位", 110), ("摘要", 700));
         _unitInfoList = UiTheme.CreateListView(Font, ("名称", 200), ("值", 480));
@@ -157,10 +161,67 @@ public sealed class StatusForm : Form
         statusSplit.RowStyles.Add(new RowStyle(SizeType.Percent, 100));
 
         statusSplit.Controls.Add(BuildSection("状态", _stateList, "基础字段与当前模块", isLast: false), 0, 0);
-        statusSplit.Controls.Add(BuildSection("光环", _auraList, "光环层数与持续状态", isLast: false), 1, 0);
+        statusSplit.Controls.Add(BuildSection("光环", BuildAuraStatusPane(), "光环层数与持续状态", isLast: false), 1, 0);
         statusSplit.Controls.Add(BuildSection("技能", _spellList, "冷却与可用状态", isLast: false), 2, 0);
         statusSplit.Controls.Add(BuildSection("动态单位", _dynamicUnitList, "模块运行时计算值"), 3, 0);
         return statusSplit;
+    }
+
+    private Control BuildAuraStatusPane()
+    {
+        var split = new TableLayoutPanel
+        {
+            Dock = DockStyle.Fill,
+            BackColor = UiTheme.SurfaceRaised,
+            ColumnCount = 1,
+            RowCount = 2,
+            Margin = new Padding(0)
+        };
+        split.RowStyles.Add(new RowStyle(SizeType.Percent, 42));
+        split.RowStyles.Add(new RowStyle(SizeType.Percent, 58));
+
+        _auraList.Margin = new Padding(0);
+        split.Controls.Add(_auraList, 0, 0);
+        split.Controls.Add(BuildRecognizedAuraPane(), 0, 1);
+        return split;
+    }
+
+    private Control BuildRecognizedAuraPane()
+    {
+        var panel = new TableLayoutPanel
+        {
+            Dock = DockStyle.Fill,
+            BackColor = UiTheme.SurfaceRaised,
+            ColumnCount = 1,
+            RowCount = 5,
+            Margin = new Padding(0, 12, 0, 0)
+        };
+        panel.RowStyles.Add(new RowStyle(SizeType.Absolute, 24));
+        panel.RowStyles.Add(new RowStyle(SizeType.Percent, 50));
+        panel.RowStyles.Add(new RowStyle(SizeType.Absolute, 24));
+        panel.RowStyles.Add(new RowStyle(SizeType.Percent, 50));
+        panel.RowStyles.Add(new RowStyle(SizeType.Absolute, 0));
+
+        panel.Controls.Add(CreateSubsectionLabel("识别光环 - 增益"), 0, 0);
+        panel.Controls.Add(_recognizedBuffAuraList, 0, 1);
+        panel.Controls.Add(CreateSubsectionLabel("识别光环 - 减益"), 0, 2);
+        panel.Controls.Add(_recognizedDebuffAuraList, 0, 3);
+
+        return panel;
+    }
+
+    private Label CreateSubsectionLabel(string text)
+    {
+        return new Label
+        {
+            Text = text,
+            Dock = DockStyle.Fill,
+            ForeColor = UiTheme.Muted,
+            Font = new Font(Font.FontFamily, 9F, FontStyle.Bold, GraphicsUnit.Point),
+            TextAlign = ContentAlignment.MiddleLeft,
+            AutoEllipsis = true,
+            Margin = new Padding(0, 0, 0, 4)
+        };
     }
 
     private Control BuildSection(string title, Control content, string subtitle, bool isLast = true)
@@ -346,8 +407,8 @@ public sealed class StatusForm : Form
         AddAboutRow(details, "产品", "Shigure");
         AddAboutRow(details, "公司", company);
         AddAboutRow(details, "版本", version);
-        AddAboutRow(details, "类型", "冲锋枪"); 
-        AddAboutRow(details, "介绍", "它一分钟打出去的子弹比荒坂偷的税还要多。"); 
+        AddAboutRow(details, "类型", "冲锋枪");
+        AddAboutRow(details, "介绍", "它一分钟打出去的子弹比荒坂偷的税还要多。");
         AddAboutRow(details, "用途", "有时人们只想把子弹全打出去，在硝烟过后品味眼前的一片狼藉。");
         AddAboutRow(details, "模块目录", FormatAboutPath(ModuleStore.ResolveModuleDirectory(AppPaths.BaseDirectory)));
         AddAboutRow(details, "配置目录", FormatAboutPath(ConfigService.ResolveConfigPath(AppPaths.BaseDirectory)));
@@ -549,28 +610,40 @@ public sealed class StatusForm : Form
             }
         }
 
-        foreach (var aura in _recognizedAuras)
-        {
-            index++;
-            var item = new ListViewItem(new[]
-            {
-                index.ToString(),
-                $"[识别] {aura.Name}",
-                UiTheme.FormatValue(aura.Time),
-                FormatAuraStacks(aura.Value)
-            })
-            {
-                ToolTipText = FormatRecognizedAuraToolTip(aura)
-            };
-            items.Add(item);
-        }
-
         if (items.Count == 0)
         {
             items.Add(new ListViewItem(new[] { "-", "光环", "无数据", "-" }));
         }
 
         ReplaceItems(_auraList, items);
+        ReplaceItems(_recognizedBuffAuraList, BuildRecognizedAuraItems("增益"));
+        ReplaceItems(_recognizedDebuffAuraList, BuildRecognizedAuraItems("减益"));
+    }
+
+    private IReadOnlyList<ListViewItem> BuildRecognizedAuraItems(string rowName)
+    {
+        var items = new List<ListViewItem>();
+        var index = 0;
+        foreach (var aura in _recognizedAuras
+                     .Where(aura => string.Equals(aura.Row, rowName, StringComparison.Ordinal))
+                     .OrderBy(aura => aura.Index))
+        {
+            index++;
+            items.Add(new ListViewItem(new[]
+            {
+                index.ToString(),
+                aura.Name,
+                UiTheme.FormatValue(aura.Time),
+                FormatAuraStacks(aura.Value)
+            }));
+        }
+
+        if (items.Count == 0)
+        {
+            items.Add(new ListViewItem(new[] { "-", rowName, "无数据", "-" }));
+        }
+
+        return items;
     }
 
     private void UpdateDynamicUnitList(RenderSnapshot snapshot)
