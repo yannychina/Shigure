@@ -9,9 +9,9 @@
     <AssemblyName>Shigure</AssemblyName>
     <RootNamespace>Shigure</RootNamespace>
     <Company>Arasaka Corporation</Company>
-    <Version>1.2.2.2</Version>
-    <AssemblyVersion>1.2.2.2</AssemblyVersion>
-    <FileVersion>1.2.2.2</FileVersion>
+    <Version>1.2.2.3</Version>
+    <AssemblyVersion>1.2.2.3</AssemblyVersion>
+    <FileVersion>1.2.2.3</FileVersion>
     <ApplicationIcon>Assets\arasaka-icon.ico</ApplicationIcon>
   </PropertyGroup>
 
