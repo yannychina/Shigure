@@ -8,7 +8,8 @@ public sealed record ScreenScanResult(IReadOnlyDictionary<int, int>? RowData, IR
 
 public sealed class PixelScanner
 {
-    private const int PixelsPerRow = 255;
+    private const int TopRowBlockCount = 510;
+    private const int TopRowFirstSchemeMax = 255;
     private readonly string _windowTitle;
 
     public PixelScanner(string windowTitle)
@@ -64,10 +65,10 @@ public sealed class PixelScanner
         var pixels = ReadPixels(top);
 
         var startX = -1;
-        for (var x = 0; x < Math.Min(PixelsPerRow, width); x++)
+        for (var x = 0; x < Math.Min(TopRowBlockCount, width); x++)
         {
             var color = Color.FromArgb(pixels[x]);
-            if (IsGreenMarker(color))
+            if (TryDecodeTopRowBlock(color, out var step, out _) && step == 1)
             {
                 startX = x;
                 break;
@@ -82,17 +83,13 @@ public sealed class PixelScanner
         for (var x = startX; x < width; x++)
         {
             var color = Color.FromArgb(pixels[x]);
-            if (color.R == 0 && color.G is >= 1 and <= PixelsPerRow)
+            if (TryDecodeTopRowBlock(color, out var step, out var value))
             {
-                rowData[color.G] = color.B;
-                if (color.G == PixelsPerRow)
+                rowData[step] = value;
+                if (step == TopRowBlockCount)
                 {
                     break;
                 }
-            }
-            else if (color.G > PixelsPerRow)
-            {
-                break;
             }
         }
 
@@ -241,7 +238,32 @@ public sealed class PixelScanner
     private static bool IsRedMarker(Color color) => color.R == 1 && color.G == 0 && color.B == 0;
     private static bool IsRedGreenMarker(Color color) => color.R == 1 && color.G == 1 && color.B == 0;
     private static bool IsWhite(Color color) => color.R == 255 && color.G == 255 && color.B == 255;
-    private static bool IsGreenMarker(Color color) => color.R == 0 && color.G == 1 && color.B == 0;
     private static bool IsGrayEndMarker(Color color) => color.R == 200 && color.G == 200 && color.B == 200;
-}
 
+    private static bool TryDecodeTopRowBlock(Color color, out int step, out int value)
+    {
+        step = 0;
+        value = 0;
+
+        if (color.G is < 1 or > TopRowFirstSchemeMax)
+        {
+            return false;
+        }
+
+        step = color.R switch
+        {
+            0 => color.G,
+            1 => TopRowFirstSchemeMax + color.G,
+            _ => 0
+        };
+
+        if (step is < 1 or > TopRowBlockCount)
+        {
+            step = 0;
+            return false;
+        }
+
+        value = color.B;
+        return true;
+    }
+}

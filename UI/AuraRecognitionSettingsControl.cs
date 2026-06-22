@@ -124,18 +124,16 @@ public sealed class AuraRecognitionSettingsControl : UserControl
             Dock = DockStyle.Fill,
             BackColor = UiTheme.Surface,
             ColumnCount = 1,
-            RowCount = 3,
+            RowCount = 2,
             Padding = new Padding(0),
             Margin = new Padding(0)
         };
         root.RowStyles.Add(new RowStyle(SizeType.AutoSize));
-        root.RowStyles.Add(new RowStyle(SizeType.Percent, 68));
-        root.RowStyles.Add(new RowStyle(SizeType.Percent, 32));
+        root.RowStyles.Add(new RowStyle(SizeType.Percent, 100));
         Controls.Add(root);
 
         root.Controls.Add(BuildToolbar(), 0, 0);
         root.Controls.Add(BuildResultsPane(), 0, 1);
-        root.Controls.Add(BuildDetailsPane(), 0, 2);
 
         _scanButton.Click += (_, _) => Scan(saveTempIcons: true);
         _toggleAuraImportButton.Click += (_, _) => ToggleAuraImport();
@@ -425,8 +423,8 @@ public sealed class AuraRecognitionSettingsControl : UserControl
             RowCount = 1,
             Margin = new Padding(0)
         };
-        split.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 62));
-        split.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 38));
+        split.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 66));
+        split.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 34));
         split.RowStyles.Add(new RowStyle(SizeType.Percent, 100));
 
         split.Controls.Add(BuildSection("识别结果", BuildAuraIconTabs(), "扫描结果与已保存图标", isLast: false), 0, 0);
@@ -1618,7 +1616,7 @@ public sealed class AuraRecognitionSettingsControl : UserControl
     private static void ConfigureTabButton(Button button)
     {
         button.AutoSize = false;
-        button.Size = new Size(112, 30);
+        button.Size = new Size(136, 30);
         button.Padding = new Padding(8, 0, 8, 0);
         button.TextAlign = ContentAlignment.MiddleCenter;
         button.Margin = new Padding(0, 0, 2, 0);

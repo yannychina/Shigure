@@ -78,6 +78,14 @@
     },
     {
       "Enabled": true,
+      "Condition": "首领战 == 71 && 目标施法可打断 == 0 && 目标施法 > 0 && 目标施法 <= 40",
+      "Unit": 0,
+      "Spell": "停止施法",
+      "Hotkey": "",
+      "Step": ""
+    },
+    {
+      "Enabled": true,
       "Condition": "",
       "Unit": 0,
       "Spell": "插入法术",
